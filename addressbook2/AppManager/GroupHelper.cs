@@ -15,8 +15,6 @@ namespace web_addressbook_test
 
         public GroupHelper(IWebDriver driver) : base(driver)
         {
-            //this.driver = driver;
- 
         }
 
         public void ReturnToGroupPage()
@@ -24,9 +22,6 @@ namespace web_addressbook_test
             //Переходим на страничку group page
             driver.FindElement(By.LinkText("group page")).Click();
         }
-
-
-
 
         public void SubmitGroupCreation()
         {
@@ -51,8 +46,6 @@ namespace web_addressbook_test
             //Кликаем new для создания новой группы
             driver.FindElement(By.Name("new")).Click();
         }
-
-
 
 
         public void RemoveGroup()
