@@ -43,10 +43,13 @@ namespace web_addressbook_test
         public void GroupCreationTest()
         {
             OpenHomePage();
-            Login("admin","secret");
+            Login(new AccountData("admin","secret"));
             GoToGroupPage();
             InitGroupCreation();
-            FillGroupForm("aaa","bbb","ccc");
+            GroupData group = new GroupData("aaa");
+            group.Header = "bbb";
+            group.Footer = "Ccc";
+
             SubmitGroupCreation();
             ReturnsToGroupPage();
             Logout();
@@ -70,16 +73,16 @@ namespace web_addressbook_test
             driver.FindElement(By.Name("submit")).Click();
         }
 
-        private void FillGroupForm(string name, string header, string footer)
+        private void FillGroupForm(GroupData group)
         {
             //Заполняем форму
             driver.FindElement(By.Name("group_name")).Click();
             driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(name);
+            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
             driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(header);
+            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
             driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(footer);
+            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
         }
 
         private void InitGroupCreation()
@@ -94,14 +97,14 @@ namespace web_addressbook_test
             driver.FindElement(By.LinkText("groups")).Click();
         }
 
-        private void Login(string username, string password)
+        private void Login(AccountData account) //Входной параметр метода Login - объект account класса AccountData 
         {
             //Авторизация 
             driver.FindElement(By.Name("user")).Click();
             driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(username);
+            driver.FindElement(By.Name("user")).SendKeys(account.Username); //Username - свойство объекта account
             driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(password);
+            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 
