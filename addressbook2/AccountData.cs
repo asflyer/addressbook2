@@ -15,7 +15,6 @@ namespace web_addressbook_test
         {
             this.username = username;
             this.password = password;
-
         }
 
         public string Username

@@ -14,13 +14,13 @@ namespace web_addressbook_test
         [Test]
         public void GroupRemovalTestCase()
         {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            GoToGroupPage();
-            SelectGroup(1);
-            RemoveGroup();
-            ReturnToGroupPage();
-            Logout();
+            navigationHelper.OpenHomePage();
+            loginHelper.Login(new AccountData("admin", "secret"));
+            navigationHelper.GoToGroupPage();
+            groupHelper.SelectGroup(1);
+            groupHelper.RemoveGroup();
+            groupHelper.ReturnToGroupPage();
+            loginHelper.Logout();
         }
 
     }

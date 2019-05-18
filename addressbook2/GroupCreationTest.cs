@@ -9,21 +9,24 @@ namespace web_addressbook_test
 {
     [TestFixture]
     public class GroupCreationTests : TestBase
+
     {
         [Test]
         public void GroupCreationTest()
         {
-            OpenHomePage();
-            Login(new AccountData("admin","secret"));
-            GoToGroupPage();
-            InitGroupCreation();
-            GroupData group = new GroupData("aaa");
-            group.Header = "bbb";
-            group.Footer = "Ccc";
-            FillGroupForm(group);
-            SubmitGroupCreation();
-            ReturnToGroupPage();
-            Logout();
+            navigationHelper.OpenHomePage();
+            loginHelper.Login(new AccountData("admin","secret"));
+            navigationHelper.GoToGroupPage();
+            groupHelper.InitGroupCreation();
+            GroupData group = new GroupData("aaa")
+            {
+                Header = "bbb",
+                Footer = "Ccc"
+            };
+            groupHelper.FillGroupForm(group);
+            groupHelper.SubmitGroupCreation();
+            groupHelper.ReturnToGroupPage();
+            loginHelper.Logout();
         }
         
     }
