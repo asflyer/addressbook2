@@ -14,20 +14,26 @@ namespace web_addressbook_test
         [Test]
         public void GroupCreationTest()
         {
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin","secret"));
-            app.Navigator.GoToGroupPage();
-            app.Groups.InitGroupCreation();
             GroupData group = new GroupData("aaa")
             {
                 Header = "bbb",
                 Footer = "Ccc"
             };
-            app.Groups.FillGroupForm(group);
-            app.Groups.SubmitGroupCreation();
-            app.Groups.ReturnToGroupPage();
-            app.Auth.Logout();
+            app.Groups.Create(group);
+            
         }
-        
+
+        [Test]
+        public void EmptyGroupCreationTest()
+        {
+            GroupData group = new GroupData("")
+            {
+                Header = "",
+                Footer = ""
+            };
+            app.Groups.Create(group);
+            
+        }
+
     }
 }

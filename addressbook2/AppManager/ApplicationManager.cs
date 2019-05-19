@@ -28,9 +28,9 @@ namespace web_addressbook_test
             
 
 
-            loginHelper = new LoginHelper(driver);
-            navigationHelper = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
+            loginHelper = new LoginHelper(this);
+            navigationHelper = new NavigationHelper(this, baseURL);
+            groupHelper = new GroupHelper(this);
         }
 
         public LoginHelper Auth
@@ -56,7 +56,14 @@ namespace web_addressbook_test
                 return groupHelper;
             }
         }
-         
+
+        public IWebDriver Driver
+        {
+            get
+            {
+                return driver;
+            }
+        }
 
         public void Stop()
         {

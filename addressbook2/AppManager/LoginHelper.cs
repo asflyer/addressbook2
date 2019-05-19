@@ -12,9 +12,10 @@ namespace web_addressbook_test
 {
     public class LoginHelper : HelperBase
     {
-        public LoginHelper(IWebDriver driver) : base(driver)
+        public LoginHelper(ApplicationManager manager) : base(manager)
         {
-           //теперь тут пусто
+            //this.manager = manager;
+            //теперь тут пусто
         }
 
         public void Login(AccountData account) //Входной параметр метода Login - объект account класса AccountData 
