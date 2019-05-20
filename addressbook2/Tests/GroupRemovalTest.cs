@@ -16,9 +16,6 @@ namespace web_addressbook_test
         {
             app.Groups.Remove(1);
 
-
-
-            app.Auth.Logout();
         }
 
     }

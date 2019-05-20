@@ -14,11 +14,9 @@ namespace web_addressbook_test
         [Test]
         public void GroupCreationTest()
         {
-            GroupData group = new GroupData("aaa")
-            {
-                Header = "bbb",
-                Footer = "Ccc"
-            };
+            GroupData group = new GroupData("aaa");
+            group.Header = "ddd";
+            group.Footer = "ccc";
             app.Groups.Create(group);
             
         }
