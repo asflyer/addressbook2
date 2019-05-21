@@ -60,7 +60,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GroupModificationTest.cs" />
+    <Compile Include="AppManager\ContactHelper.cs" />
+    <Compile Include="Tests\GroupModificationTest.cs" />
     <Compile Include="Model\AccountData.cs" />
     <Compile Include="AppManager\ApplicationManager.cs" />
     <Compile Include="FigureTest\Circle.cs" />

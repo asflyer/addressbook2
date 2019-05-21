@@ -27,6 +27,7 @@ namespace web_addressbook_test
             manager.Auth.Logout();
             return this;
         }
+               
 
         public GroupHelper Modify(int v, GroupData newData)
         {

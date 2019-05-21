@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace web_addressbook_test
 {
-    class ContactData
+    public class ContactData
     {
         public string firstname;
         public string middlename;

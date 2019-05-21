@@ -18,8 +18,8 @@ namespace web_addressbook_test
         protected LoginHelper loginHelper;
         protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
+        protected ContactHelper contactHelper;
 
-        
 
         public ApplicationManager()
         {
@@ -31,6 +31,7 @@ namespace web_addressbook_test
             loginHelper = new LoginHelper(this);
             navigationHelper = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
+            contactHelper = new ContactHelper(this);
         }
 
         public LoginHelper Auth
@@ -57,6 +58,14 @@ namespace web_addressbook_test
             }
         }
 
+        public ContactHelper Contacts
+        {
+            get
+            {
+                return contactHelper;
+            }
+        }
+
         public IWebDriver Driver
         {
             get
@@ -76,9 +85,6 @@ namespace web_addressbook_test
                 // Ignore errors if unable to close the browser
             }
         }
-
-
-
 
 
 
