@@ -48,13 +48,10 @@ namespace web_addressbook_test
             return this;
         }
 
-        private bool acceptNextAlert = true; //для всплывающего окна
         public ContactHelper DeleteContact()
         {
-
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            acceptNextAlert = true;
-            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            driver.SwitchTo().Alert().Accept();
             return this;
         }
 
@@ -130,34 +127,9 @@ namespace web_addressbook_test
 
         public ContactHelper SelectContact(int index)
         {
-            //driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[6]/td/input")).Click(); //тут tr6 = 5 строчка (получил рекордером)
             driver.FindElement(By.XPath("//tr[ " + index + "]/td/input")).Click();//тут tr4 = 3 строчка (получил рекордером)
-
-            //driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();//это из селекта групп
             return this;
         }
 
-
-        private string CloseAlertAndGetItsText() //для всплывающего окна
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
-        }
     }
 }
