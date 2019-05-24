@@ -20,7 +20,7 @@ namespace web_addressbook_test
         {
 
             GroupData newData = new GroupData("zzz");
-            newData.Header = "ggg";
+            newData.Header = null; //"ggg";
             newData.Footer = "xxx";
 
             app.Groups.Modify(2, newData);

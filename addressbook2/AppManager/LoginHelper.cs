@@ -21,11 +21,9 @@ namespace web_addressbook_test
         public void Login(AccountData account) //Входной параметр метода Login - объект account класса AccountData 
         {
             //Авторизация 
-            driver.FindElement(By.Name("user")).Click();
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username); //Username - свойство объекта account
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            //driver.FindElement(By.Name("user")).Click();
+            Type(By.Name("user"), account.Username);
+            Type(By.Name("pass"), account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
 

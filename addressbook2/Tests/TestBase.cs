@@ -9,21 +9,13 @@ namespace web_addressbook_test
 {
     public class TestBase
     {
-        protected ApplicationManager app;
+        public ApplicationManager app;
 
-        [SetUp]
+        [OneTimeSetUp]
+
         public void SetupTest()
         {
-            app = new ApplicationManager();
-            app.Navigator.OpenHomePage();
-            app.Auth.Login(new AccountData("admin", "secret"));
-        }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            app.Auth.Logout();
-            app.Stop();
+            app = ApplicationManager.GetInstance();
 
         }
 

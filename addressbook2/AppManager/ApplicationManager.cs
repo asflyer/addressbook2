@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -9,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace web_addressbook_test
 {
-    public class ApplicationManager
+    public class ApplicationManager : TestBase
     {
         protected IWebDriver driver;// Protected означает что "оно все еще внутреннее, но наследники тоже получают доступ"
         protected string baseURL;
@@ -19,19 +20,42 @@ namespace web_addressbook_test
         protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
+        private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();//устанавливает соответствие между текущим потоком и объектом типа ApplicationManager
 
 
-        public ApplicationManager()
+
+
+        private ApplicationManager()
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
             
-
-
+            
             loginHelper = new LoginHelper(this);
             navigationHelper = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
+        }
+
+         ~ApplicationManager() //Деструктор (тильдаКласс)
+        {
+            try
+            {
+                driver.Quit();//Остановка браузера
+            }
+            catch (Exception)
+            {
+                // Ignore errors if unable to close the browser
+            }
+        }
+
+        public static ApplicationManager GetInstance() //static - глобальный. Можно будет обращаться как к ApplicationManager.GetInstance()
+        {
+            if (! app.IsValueCreated) //Если для текущего потока внутри этого хранилища ничего не создано, то создаем
+            {
+                app.Value = new ApplicationManager();
+            }
+            return app.Value;
         }
 
         public LoginHelper Auth
@@ -74,17 +98,7 @@ namespace web_addressbook_test
             }
         }
 
-        public void Stop()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-        }
+
 
 
 

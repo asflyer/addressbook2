@@ -13,7 +13,7 @@ namespace web_addressbook_test
         [Test]
         public void ContactRemovalTestCase()
         {
-            app.Contacts.RemoveContact(3);//указывается порядковый номер записи в таблице на странице home
+            app.Contacts.RemoveContact(1);//указывается порядковый номер записи в таблице на странице home
 
         }
         
