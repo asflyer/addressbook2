@@ -22,13 +22,22 @@ namespace web_addressbook_test
 
         public void OpenHomePage()
         {
+            if(driver.Url == baseURL)
+            {
+                return;
+            }
             //Открываем домашнюю страницу 
             driver.Navigate().GoToUrl(baseURL);
         }
 
-        public void GoToGroupPage()
+        public void GoToGroupPage()//Переходим на groups
         {
-            //Переходим на groups
+            if (driver.Url == baseURL + "/group.php" //Проверяем, что мы на странице с таким адресом
+                && IsElementPresent(By.Name("new"))) //И что там есть кнопка new (то есть мейн страница Групп)
+                {
+                    return;
+                }
+                 
             driver.FindElement(By.LinkText("groups")).Click();
         }
 

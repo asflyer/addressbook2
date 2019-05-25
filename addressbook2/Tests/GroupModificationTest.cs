@@ -12,7 +12,7 @@ namespace web_addressbook_test
 {
     [TestFixture]
 
-    public class GroupModificationTest : TestBase
+    public class GroupModificationTest : AuthTestBase
     {
         [Test]
 

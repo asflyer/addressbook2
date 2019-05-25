@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace web_addressbook_test
 {
     
-    public class ContactRemovalTest : TestBase
+    public class ContactRemovalTest : AuthTestBase
     {
         [Test]
         public void ContactRemovalTestCase()

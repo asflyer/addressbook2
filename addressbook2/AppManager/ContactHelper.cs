@@ -24,7 +24,6 @@ namespace web_addressbook_test
             InitContactModification(v);
             FillContactForm(newData);
             SubmitContactModification();
-            manager.Navigator.OpenHomePage();
             return this;
         }
 
@@ -42,9 +41,9 @@ namespace web_addressbook_test
 
         internal ContactHelper RemoveContact(int v)
         {
+            manager.Navigator.OpenHomePage();
             SelectContact(v + 1); //для того, чтобы сошелся номер
             DeleteContact();
-            manager.Navigator.OpenHomePage(); 
             return this;
         }
 
@@ -57,6 +56,7 @@ namespace web_addressbook_test
 
         public ContactHelper AddContact(ContactData contact)
         {
+            manager.Navigator.OpenHomePage();
             InitContactCreation();
             FillContactForm(contact);
             SubmitContactCreation();
@@ -77,7 +77,7 @@ namespace web_addressbook_test
             Type(By.Name("firstname"), contact.Firstname);
             Type(By.Name("middlename"), contact.Middlename);
             Type(By.Name("lastname"), contact.Lastname);
-            Type(By.Name("Nickname"), contact.Nickname);
+            Type(By.Name("nickname"), contact.Nickname);
 
 
             return this;

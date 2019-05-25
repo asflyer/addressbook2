@@ -53,7 +53,10 @@ namespace web_addressbook_test
         {
             if (! app.IsValueCreated) //Если для текущего потока внутри этого хранилища ничего не создано, то создаем
             {
-                app.Value = new ApplicationManager();
+                ApplicationManager newInstance = new ApplicationManager();
+                newInstance.Navigator.OpenHomePage();
+                app.Value = newInstance;
+                
             }
             return app.Value;
         }
