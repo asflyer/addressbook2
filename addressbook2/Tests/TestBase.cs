@@ -11,7 +11,7 @@ namespace web_addressbook_test
     {
         public ApplicationManager app;
 
-        [OneTimeSetUp]
+        [SetUp]
 
         public void SetupApplicationManager()
         {

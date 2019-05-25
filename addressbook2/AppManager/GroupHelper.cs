@@ -31,22 +31,57 @@ namespace web_addressbook_test
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupPage();
-            SelectGroup(v);
-            InitGroupModification();
-            FillGroupForm(newData);
-            SubmitGroupModification();
-            ReturnToGroupPage();
-            return this;
-        }
+            if(IsElementPresent(By.Name("selected[]")))
+            {
+                SelectGroup(v);
+                InitGroupModification();
+                FillGroupForm(newData);
+                SubmitGroupModification();
+                ReturnToGroupPage();
+                return this;
+            }
+            else
+            {
+                GroupData group = new GroupData("")
+                {
+                    Header = "",
+                    Footer = ""
+                };
+                Create(group);//Создаем пустую группу, чтобы проверить функционал изменения групп
+                SelectGroup(1);//Если создана тольо одна, то это будет всегда 1ая группа
+                InitGroupModification();
+                FillGroupForm(newData);
+                SubmitGroupModification();
+                ReturnToGroupPage();
+                return this;
+            }
 
+
+        }
 
         public GroupHelper Remove(int v)
         {
             manager.Navigator.GoToGroupPage();
-            SelectGroup(v);
-            RemoveGroup();
-            ReturnToGroupPage();
-            return this;
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+                SelectGroup(v);
+                RemoveGroup();
+                ReturnToGroupPage();
+                return this;
+            }
+            else
+            {
+                GroupData group = new GroupData("")
+                {
+                    Header = "",
+                    Footer = ""
+                };
+                Create(group);//Создаем пустую группу, чтобы проверить функционал удаления групп
+                SelectGroup(1);//Если создана тольо одна, то это будет всегда 1ая группа
+                RemoveGroup();
+                ReturnToGroupPage();
+                return this;
+            }
         }
 
         public GroupHelper ReturnToGroupPage()

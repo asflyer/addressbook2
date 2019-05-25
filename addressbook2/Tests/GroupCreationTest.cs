@@ -29,6 +29,7 @@ namespace web_addressbook_test
                 Header = "",
                 Footer = ""
             };
+            Thread.Sleep(100);
             app.Groups.Create(group);
             
         }

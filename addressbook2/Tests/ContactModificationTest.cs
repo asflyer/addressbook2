@@ -18,7 +18,7 @@ namespace web_addressbook_test
             newData.Middlename = "454456";
             newData.Lastname = "454456";
             
-            app.Contacts.Modify(3, newData); //порядковый номер записи на странице home
+            app.Contacts.Modify(1, newData); //порядковый номер записи на странице home
 
         }
 

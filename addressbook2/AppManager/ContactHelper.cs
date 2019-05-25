@@ -21,30 +21,42 @@ namespace web_addressbook_test
         public ContactHelper Modify(int v, ContactData newData)
         {
             manager.Navigator.OpenHomePage();
-            InitContactModification(v);
-            FillContactForm(newData);
-            SubmitContactModification();
-            return this;
-        }
+            if (IsElementPresent(By.Name("entry")))
+            {
+                InitContactModification(v);
+                FillContactForm(newData);
+                SubmitContactModification();
+                return this;
+            }
+            else
+            {
+                ContactData contact = new ContactData(""); //создаем контакт
+                AddContact(contact);
+                InitContactModification(1);//Первый свежесозданный
+                FillContactForm(newData);
+                SubmitContactModification();
+                return this;
+            }
 
-        public ContactHelper SubmitContactModification()
-        {
-            driver.FindElement(By.Name("update")).Click(); 
-            return this;
         }
-
-        public ContactHelper InitContactModification(int index)
-        {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" +index+ "]")).Click();
-            return this;
-        }
-
+        
         internal ContactHelper RemoveContact(int v)
         {
             manager.Navigator.OpenHomePage();
-            SelectContact(v + 1); //для того, чтобы сошелся номер
-            DeleteContact();
-            return this;
+            if (IsElementPresent(By.Name("entry")))
+            {
+                SelectContact(v + 1); //для того, чтобы сошелся номер
+                DeleteContact();
+                return this;
+            }
+            else
+            {
+                ContactData contact = new ContactData(""); //создаем контакт
+                AddContact(contact);
+                SelectContact(2); 
+                DeleteContact();
+                return this;
+            }
         }
 
         public ContactHelper DeleteContact()
@@ -93,6 +105,18 @@ namespace web_addressbook_test
         public ContactHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("//tr[ " + index + "]/td/input")).Click();//тут tr4 = 3 строчка (получил рекордером)
+            return this;
+        }
+
+        public ContactHelper SubmitContactModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification(int index)
+        {
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
         }
 
