@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 
 namespace web_addressbook_test
@@ -17,8 +18,17 @@ namespace web_addressbook_test
             GroupData group = new GroupData("aaa");
             group.Header = "ddd";
             group.Footer = "ccc";
+
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Create(group);
+
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
             
+
+
         }
 
         [Test]
@@ -30,8 +40,27 @@ namespace web_addressbook_test
                 Footer = ""
             };
             Thread.Sleep(100);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Create(group);
-            
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+        }
+
+        [Test]//Тест для того, чтобы проверить, что наши проверки работают
+        public void BadGroupCreationTest()
+        {
+            GroupData group = new GroupData("a'a")//группа с одинарной кавычкой не создается (багуля)
+            {
+                Header = "",
+                Footer = ""
+            };
+            Thread.Sleep(100);
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            app.Groups.Create(group);
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
         }
 
     }

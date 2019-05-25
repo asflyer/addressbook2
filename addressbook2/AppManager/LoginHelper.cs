@@ -15,8 +15,7 @@ namespace web_addressbook_test
     {
         public LoginHelper(ApplicationManager manager) : base(manager)
         {
-            //this.manager = manager;
-            //теперь тут пусто
+
         }
 
         public void Login(AccountData account) //Входной параметр метода Login - объект account класса AccountData 

@@ -26,7 +26,20 @@ namespace web_addressbook_test
             ReturnToGroupPage();
             return this;
         }
-               
+
+        public List<GroupData> GetGroupList()
+        {
+            manager.Navigator.GoToGroupPage();
+
+            List<GroupData> groups = new List<GroupData>();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); //Коллекция (группа, множество) элементов типа IwebElement
+            foreach(IWebElement element in elements) //Для каждого элемента в коллекции
+            {
+                groups.Add(new GroupData(element.Text)); //Преобразуем объекты IWebElement в объекты типа GroupData
+            }
+            return groups;
+        }
 
         public GroupHelper Modify(int v, GroupData newData)
         {
