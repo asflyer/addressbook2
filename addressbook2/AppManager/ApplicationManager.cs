@@ -14,7 +14,8 @@ namespace web_addressbook_test
     {
         protected IWebDriver driver;// Protected означает что "оно все еще внутреннее, но наследники тоже получают доступ"
         protected string baseURL;
-
+        
+        
 
         protected LoginHelper loginHelper;
         protected NavigationHelper navigationHelper;
@@ -29,15 +30,17 @@ namespace web_addressbook_test
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
-            
-            
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromMilliseconds(50);//   //Костыль - чтобы не падало при массовом запуске
+
+
             loginHelper = new LoginHelper(this);
             navigationHelper = new NavigationHelper(this, baseURL);
             groupHelper = new GroupHelper(this);
             contactHelper = new ContactHelper(this);
         }
 
-         ~ApplicationManager() //Деструктор (тильдаКласс)
+
+        ~ApplicationManager() //Деструктор (тильдаКласс)
         {
             try
             {

@@ -10,7 +10,6 @@ namespace web_addressbook_test
     public class TestBase
     {
         public ApplicationManager app;
-
         [SetUp]
 
         public void SetupApplicationManager()
@@ -18,6 +17,7 @@ namespace web_addressbook_test
             app = ApplicationManager.GetInstance();
             
         }
+
 
     }
 }

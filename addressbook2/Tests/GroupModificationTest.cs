@@ -18,12 +18,26 @@ namespace web_addressbook_test
 
         public void GroupModificationTestCase()
         {
-
             GroupData newData = new GroupData("zzz");
-            newData.Header = null; //"ggg";
+            newData.Header = null; 
             newData.Footer = "xxx";
+            int N = 1;//Указываем номер группы для изменения и новые значения в newData
 
-            app.Groups.Modify(2, newData);
+            app.Navigator.GoToGroupPage();//Чтобы смотреть на этой странице существуют-ли группы
+            
+            if (app.Navigator.IsElementPresent(By.Name("selected[]")))
+            {
+                app.Groups.Modify(N, newData);//Будет изменена N-ая группа. Если такой нет - тест упадет. 
+            }
+            else //В случае, если было задано N=1, а групп нет совсем - создаем.
+            {
+                GroupData group = new GroupData(" ");
+              
+                app.Groups.Create(group);
+                app.Groups.Modify(1, newData);//Если создана тольо одна, то это будет всегда 1ая группа
+
+            }
+
 
         }
 

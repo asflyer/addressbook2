@@ -10,7 +10,7 @@
   <Class Name="web_addressbook_test.ApplicationManager">
     <Position X="4.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAEAABAAAAAAAAAAAAASAAAAAgAAAIBCAABEAACA=</HashCode>
+      <HashCode>BAAAAEAABAAAAAAAAAAAABSABAAAgAAAADCAABEAACA=</HashCode>
       <FileName>AppManager\ApplicationManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -23,14 +23,14 @@
   <Class Name="web_addressbook_test.HelperBase">
     <Position X="10.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAACEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABCEAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>AppManager\HelperBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="web_addressbook_test.TestBase">
     <Position X="1.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAAAAAAAAABAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>Tests\TestBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -40,7 +40,7 @@
   <Class Name="web_addressbook_test.LoginHelper" Collapsed="true">
     <Position X="8" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAASAAAAAAA=</HashCode>
       <FileName>AppManager\LoginHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -54,7 +54,7 @@
   <Class Name="web_addressbook_test.GroupCreationTests" Collapsed="true">
     <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAgAAAAAAAAAAQAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tests\GroupCreationTest.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -68,7 +68,7 @@
   <Class Name="web_addressbook_test.ContactHelper" Collapsed="true">
     <Position X="8" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAABAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <HashCode>AABAIAACDAAEAAAAAAAAAAAAAgAAAAAAAAAYAAAAAgA=</HashCode>
       <FileName>AppManager\ContactHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -77,6 +77,20 @@
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tests\AddContactTest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="web_addressbook_test.AuthTestBase">
+    <Position X="2.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AuthTestBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="web_addressbook_test.LoginTests" Collapsed="true">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>LoginTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
