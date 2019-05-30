@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace web_addressbook_test
@@ -17,26 +12,19 @@ namespace web_addressbook_test
             ContactData newData = new ContactData("454456"); //newData.Firstname
             newData.Middlename = "454456";
             newData.Lastname = "454456";
-            int N = 1;//Указываем номер контакта для удаления 
-            app.Navigator.OpenHomePage();
+            int N = 1;//порядковый номер записи на странице home
 
-
-            if (app.Navigator.IsElementPresent(By.Name("entry")))
+            if (app.Contacts.ContactExist())
             {
-                app.Contacts.Modify(N, newData); //порядковый номер записи на странице home
+                app.Contacts.Modify(N, newData); 
             }
             else
             {
-                ContactData contact = new ContactData(""); //создаем контакт
+                ContactData contact = new ContactData("");
                 app.Contacts.AddContact(contact);
-                app.Contacts.Modify(1, newData); //порядковый номер записи на странице home
-
+                app.Contacts.Modify(1, newData); 
             }
-
-
             
-            
-
         }
 
     }

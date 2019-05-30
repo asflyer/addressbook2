@@ -21,22 +21,29 @@ namespace web_addressbook_test
         public ContactHelper Modify(int v, ContactData newData)
         {
             manager.Navigator.OpenHomePage();
-            
-                InitContactModification(v);
-                FillContactForm(newData);
-                SubmitContactModification();
-                return this;
-            
+            InitContactModification(v);
+            FillContactForm(newData);
+            SubmitContactModification();
+            return this;
 
         }
-        
-        internal ContactHelper RemoveContact(int v)
+
+
+
+        public bool ContactExist()
+        {
+            manager.Navigator.OpenHomePage();
+            return IsElementPresent(By.Name("entry"));
+        }
+
+        public ContactHelper RemoveContact(int v)
         {
             manager.Navigator.OpenHomePage();
             SelectContact(v + 1); //для того, чтобы сошелся номер
             DeleteContact();
             return this;
         }
+
 
         public ContactHelper DeleteContact()
         {

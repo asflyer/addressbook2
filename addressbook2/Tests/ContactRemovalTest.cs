@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
-using OpenQA.Selenium;
 
 namespace web_addressbook_test
 {
@@ -14,19 +9,17 @@ namespace web_addressbook_test
         [Test]
         public void ContactRemovalTestCase()
         {
-            int N = 1;//Указываем номер контакта для удаления 
-            app.Navigator.OpenHomePage();
+            int N = 1;//Порядковый номер удаляемого контакта
 
-            if (app.Navigator.IsElementPresent(By.Name("entry")))
+            if (app.Contacts.ContactExist())
             {
-                app.Contacts.RemoveContact(N);//указывается порядковый номер записи в таблице на странице home
+                app.Contacts.RemoveContact(N);
             }
             else
             {
-                ContactData contact = new ContactData(""); //создаем контакт
+                ContactData contact = new ContactData("");
                 app.Contacts.AddContact(contact);
                 app.Contacts.RemoveContact(1);
-
             }
 
             

@@ -21,23 +21,18 @@ namespace web_addressbook_test
             GroupData newData = new GroupData("zzz");
             newData.Header = null; 
             newData.Footer = "xxx";
-            int N = 1;//Указываем номер группы для изменения и новые значения в newData
+            int N = 1;//Порядковый номер изменяемой группы
 
-            app.Navigator.GoToGroupPage();//Чтобы смотреть на этой странице существуют-ли группы
-            
-            if (app.Navigator.IsElementPresent(By.Name("selected[]")))
+            if (app.Groups.GroupExist())
             {
-                app.Groups.Modify(N, newData);//Будет изменена N-ая группа. Если такой нет - тест упадет. 
+                app.Groups.Modify(N, newData);
             }
-            else //В случае, если было задано N=1, а групп нет совсем - создаем.
+            else
             {
-                GroupData group = new GroupData(" ");
-              
+                GroupData group = new GroupData("a");
                 app.Groups.Create(group);
-                app.Groups.Modify(1, newData);//Если создана тольо одна, то это будет всегда 1ая группа
-
+                app.Groups.Modify(1, newData);
             }
-
 
         }
 

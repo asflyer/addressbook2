@@ -53,7 +53,7 @@ namespace web_addressbook_test
             if (IsLoggedIn())
             {
                 driver.FindElement(By.LinkText("Logout")).Click();
-                //Thread.Sleep(100); //Костыль - иначе падает при массовом запуске
+                
                 driver.FindElement(By.Name("user"));
             }
             

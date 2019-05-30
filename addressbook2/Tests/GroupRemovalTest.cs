@@ -18,24 +18,20 @@ namespace web_addressbook_test
         [Test]
         public void GroupRemovalTestCase()
         {
-            int N = 1;//Указываем номер группы для изменения
-            app.Navigator.GoToGroupPage();//Чтобы смотреть на этой странице существуют-ли группы
+            int N = 1;//Порядковый номер удаляемой группы
 
-            
-            if (app.Navigator.IsElementPresent(By.Name("selected[]")))
+            if (app.Groups.GroupExist())
             {
-                app.Groups.Remove(N);//Будет удалена N-ая группа. Если такой нет - тест упадет.
+                app.Groups.Remove(N); //Указываем номер группы для удаления
             }
-            else //В случае, если было задано N=1, а групп нет совсем - создаем.
+            else
             {
-                GroupData group = new GroupData(" ");
+                GroupData group = new GroupData("a");
                 app.Groups.Create(group);
                 app.Groups.Remove(1);
-
             }
-
-
-
+                
+            
         }
 
     }
