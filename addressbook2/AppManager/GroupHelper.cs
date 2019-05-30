@@ -53,6 +53,11 @@ namespace web_addressbook_test
 
         }
 
+        public bool GroupExist()
+        {
+            manager.Navigator.GoToGroupPage();
+            return IsElementPresent(By.Name("selected[]"));
+        }
 
         public GroupHelper Remove(int v)
         {
