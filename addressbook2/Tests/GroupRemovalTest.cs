@@ -20,18 +20,14 @@ namespace web_addressbook_test
         {
             int N = 1;//Порядковый номер удаляемой группы
 
-            if (app.Groups.GroupExist())
-            {
-                app.Groups.Remove(N); //Указываем номер группы для удаления
-            }
-            else
+            if (app.Groups.GroupNotExist())
             {
                 GroupData group = new GroupData("a");
                 app.Groups.Create(group);
-                app.Groups.Remove(1);
+                N = 1;
             }
-                
-            
+            app.Groups.Remove(N); //Указываем номер группы для удаления
+
         }
 
     }

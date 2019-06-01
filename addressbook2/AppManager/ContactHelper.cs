@@ -30,10 +30,15 @@ namespace web_addressbook_test
 
 
 
-        public bool ContactExist()
+        public bool ContactNotExist()
         {
             manager.Navigator.OpenHomePage();
-            return IsElementPresent(By.Name("entry"));
+            if (IsElementPresent(By.Name("entry")) == true)
+            {
+                return false;
+            }
+            else return true;
+
         }
 
         public ContactHelper RemoveContact(int v)

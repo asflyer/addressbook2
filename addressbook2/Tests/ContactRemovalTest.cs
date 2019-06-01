@@ -9,20 +9,18 @@ namespace web_addressbook_test
         [Test]
         public void ContactRemovalTestCase()
         {
-            int N = 1;//Порядковый номер удаляемого контакта
+            int N = 1;//ВВОДИМ САМИ Порядковый номер удаляемого контакта
 
-            if (app.Contacts.ContactExist())
-            {
-                app.Contacts.RemoveContact(N);
-            }
-            else
+            if (app.Contacts.ContactNotExist())
             {
                 ContactData contact = new ContactData("");
                 app.Contacts.AddContact(contact);
-                app.Contacts.RemoveContact(1);
+                N = 1;
             }
 
-            
+            app.Contacts.RemoveContact(N);
+
+
 
         }
         

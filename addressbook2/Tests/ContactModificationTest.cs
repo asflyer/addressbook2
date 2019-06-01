@@ -14,16 +14,16 @@ namespace web_addressbook_test
             newData.Lastname = "454456";
             int N = 1;//порядковый номер записи на странице home
 
-            if (app.Contacts.ContactExist())
-            {
-                app.Contacts.Modify(N, newData); 
-            }
-            else
+            if (app.Contacts.ContactNotExist())
             {
                 ContactData contact = new ContactData("");
                 app.Contacts.AddContact(contact);
-                app.Contacts.Modify(1, newData); 
+                N = 1;
             }
+
+            app.Contacts.Modify(N, newData);
+
+
             
         }
 

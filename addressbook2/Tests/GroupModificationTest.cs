@@ -22,18 +22,16 @@ namespace web_addressbook_test
             newData.Header = null; 
             newData.Footer = "xxx";
             int N = 1;//Порядковый номер изменяемой группы
-
-            if (app.Groups.GroupExist())
-            {
-                app.Groups.Modify(N, newData);
-            }
-            else
+            
+            if (app.Groups.GroupNotExist())
             {
                 GroupData group = new GroupData("a");
                 app.Groups.Create(group);
-                app.Groups.Modify(1, newData);
+                N = 1;
             }
 
+            app.Groups.Modify(N, newData);
+   
         }
 
     }
