@@ -21,14 +21,9 @@ namespace web_addressbook_test
             GroupData newData = new GroupData("zzz");
             newData.Header = null; 
             newData.Footer = "xxx";
-            int N = 1;//Порядковый номер изменяемой группы
-            
-            if (app.Groups.GroupNotExist())
-            {
-                GroupData group = new GroupData("a");
-                app.Groups.Create(group);
-                N = 1;
-            }
+            int N = 1;//Порядковый номер изменяемой группы начиная с нуля!!!
+
+            app.Groups.GroupExist();
 
             app.Groups.Modify(N, newData);
    

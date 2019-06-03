@@ -12,15 +12,11 @@ namespace web_addressbook_test
             ContactData newData = new ContactData("454456"); //newData.Firstname
             newData.Middlename = "454456";
             newData.Lastname = "454456";
-            int N = 1;//порядковый номер записи на странице home
+            int N = 1;//порядковый номер записи на странице home  начиная с нуля!!!
 
-            if (app.Contacts.ContactNotExist())
-            {
-                ContactData contact = new ContactData("");
-                app.Contacts.AddContact(contact);
-                N = 1;
-            }
+            app.Contacts.ContactExist();
 
+ 
             app.Contacts.Modify(N, newData);
 
 

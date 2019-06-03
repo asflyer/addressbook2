@@ -53,14 +53,15 @@ namespace web_addressbook_test
 
         }
 
-        public bool GroupNotExist()
+        public void GroupExist()
         {
             manager.Navigator.GoToGroupPage();
-            if (IsElementPresent(By.Name("selected[]")))
+            if (!IsElementPresent(By.Name("selected[]")))
             {
-                return false;
+                GroupData group = new GroupData("a");
+                Create(group);
             }
-            else return true;
+            return;
         }
 
         public GroupHelper Remove(int v)
@@ -77,6 +78,7 @@ namespace web_addressbook_test
         {
             //Переходим на страничку group page
             driver.FindElement(By.LinkText("group page")).Click();
+            driver.FindElement(By.Name("new"));
             return this;
         }
 
@@ -115,7 +117,7 @@ namespace web_addressbook_test
 
         public GroupHelper SelectGroup(int index)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
             return this;
         }
 

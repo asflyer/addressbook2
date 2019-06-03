@@ -30,22 +30,22 @@ namespace web_addressbook_test
 
 
 
-        public bool ContactNotExist()
+        public void ContactExist()
         {
             manager.Navigator.OpenHomePage();
-
-            if (IsElementPresent(By.Name("entry")))
+            if (!IsElementPresent(By.Name("entry")))
             {
-                return false;
+                ContactData contact = new ContactData("");
+                AddContact(contact);
             }
-            else return true;
+            return;
 
         }
 
         public ContactHelper RemoveContact(int v)
         {
             manager.Navigator.OpenHomePage();
-            SelectContact(v + 1); //для того, чтобы сошелся номер
+            SelectContact(v + 2); //для того, чтобы сошелся номер (+1 потому что XPath("//tr, +1 потому что начинаем нумерацию с нуля)
             DeleteContact();
             return this;
         }
@@ -55,6 +55,8 @@ namespace web_addressbook_test
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
+            
+            driver.FindElement(By.XPath("//input[@value='Send e-Mail']"));
             return this;
         }
 
@@ -103,6 +105,7 @@ namespace web_addressbook_test
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            driver.FindElement(By.XPath("//input[@value='Send e-Mail']"));
             return this;
         }
 

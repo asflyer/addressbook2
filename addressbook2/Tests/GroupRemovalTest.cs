@@ -18,15 +18,21 @@ namespace web_addressbook_test
         [Test]
         public void GroupRemovalTestCase()
         {
-            int N = 1;//Порядковый номер удаляемой группы
+            //int N = 0;//Порядковый номер удаляемой группы начиная с нуля!!!
 
-            if (app.Groups.GroupNotExist())
-            {
-                GroupData group = new GroupData("a");
-                app.Groups.Create(group);
-                N = 1;
-            }
-            app.Groups.Remove(N); //Указываем номер группы для удаления
+
+            
+            
+            app.Groups.GroupExist();
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            app.Groups.Remove(0); //Указываем номер группы для удаления
+
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            oldGroups.RemoveAt(0); 
+            
+            Assert.AreEqual(oldGroups, newGroups);
 
         }
 
