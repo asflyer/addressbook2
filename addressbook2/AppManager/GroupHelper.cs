@@ -56,7 +56,7 @@ namespace web_addressbook_test
         public bool GroupNotExist()
         {
             manager.Navigator.GoToGroupPage();
-            if (IsElementPresent(By.Name("selected[]")) == true)
+            if (IsElementPresent(By.Name("selected[]")))
             {
                 return false;
             }

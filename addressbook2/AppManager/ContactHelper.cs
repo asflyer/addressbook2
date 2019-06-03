@@ -33,7 +33,8 @@ namespace web_addressbook_test
         public bool ContactNotExist()
         {
             manager.Navigator.OpenHomePage();
-            if (IsElementPresent(By.Name("entry")) == true)
+
+            if (IsElementPresent(By.Name("entry")))
             {
                 return false;
             }
