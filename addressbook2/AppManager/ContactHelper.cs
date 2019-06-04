@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
@@ -45,7 +46,7 @@ namespace web_addressbook_test
         public ContactHelper RemoveContact(int v)
         {
             manager.Navigator.OpenHomePage();
-            SelectContact(v + 2); //для того, чтобы сошелся номер (+1 потому что XPath("//tr, +1 потому что начинаем нумерацию с нуля)
+            SelectContact(v); 
             DeleteContact();
             return this;
         }
@@ -55,8 +56,9 @@ namespace web_addressbook_test
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
-            
+
             driver.FindElement(By.XPath("//input[@value='Send e-Mail']"));
+            
             return this;
         }
 
@@ -98,7 +100,7 @@ namespace web_addressbook_test
 
         public ContactHelper SelectContact(int index)
         {
-            driver.FindElement(By.XPath("//tr[ " + index + "]/td/input")).Click();//тут tr4 = 3 строчка (получил рекордером)
+            driver.FindElement(By.XPath("//tr[ " + (index+2) + "]/td/input")).Click();//тут tr4 = 3 строчка (Xpath привет) и Еще +1 потому что начинаем нумерацию с нуля)
             return this;
         }
 
@@ -113,6 +115,20 @@ namespace web_addressbook_test
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            manager.Navigator.OpenHomePage();
+
+            List<ContactData> contacts = new List<ContactData>();
+
+            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("[ name = 'entry' ]")); //ищем элемент с аттрибутом name = entry (привет CSS селекторы)
+            foreach (IWebElement element in elements) //Для каждого элемента в коллекции
+            {
+                contacts.Add(new ContactData(element.Text)); //Преобразуем объекты IWebElement в объекты типа GroupData
+            }
+            return contacts;
         }
 
     }

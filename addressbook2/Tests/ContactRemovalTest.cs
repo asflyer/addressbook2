@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace web_addressbook_test
 {
@@ -13,10 +14,16 @@ namespace web_addressbook_test
 
             app.Contacts.ContactExist();
 
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.RemoveContact(N);
 
+            List<ContactData> newContacts = app.Contacts.GetContactList();
 
+            oldContacts.RemoveAt(N);//
+
+            Assert.AreEqual(oldContacts, newContacts); //Стандартный метод сравнения
+            //Equals(oldGroups, newGroups); //Метод созданный нами ( в GroupData )
 
         }
         

@@ -21,8 +21,6 @@ namespace web_addressbook_test
             //int N = 0;//Порядковый номер удаляемой группы начиная с нуля!!!
 
 
-            
-            
             app.Groups.GroupExist();
             List<GroupData> oldGroups = app.Groups.GetGroupList();
 
@@ -32,7 +30,8 @@ namespace web_addressbook_test
 
             oldGroups.RemoveAt(0); 
             
-            Assert.AreEqual(oldGroups, newGroups);
+            Assert.AreEqual(oldGroups, newGroups); //Стандартный метод сравнения
+            Equals(oldGroups, newGroups); //Метод созданный нами ( в GroupData )
 
         }
 

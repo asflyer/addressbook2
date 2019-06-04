@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace web_addressbook_test
 {
-    public class ContactData
+    public class ContactData : IEquatable<ContactData>
     {
         public string firstname;
         public string middlename;
@@ -75,5 +75,25 @@ namespace web_addressbook_test
                 nickname = value;
             }
         }
+
+        public bool Equals(ContactData other)
+        {
+            if (object.ReferenceEquals(other, null))//Если объект с которым сравниваем это null
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(this, other))//Если это один и тот же объект
+            {
+                return true;
+            }
+            return (Firstname == other.Firstname)&&(Lastname == other.Lastname);//Не уверен, что так можно
+        }
+
+        public int GetHashCode()
+        {
+            //return 0;//Так будет всегда вызываться сразу метод Equals (если не ноль, тогда сначала сравниваются, хэшкоды, а если они одинаковые, то вызывается Equals)
+            return Firstname.GetHashCode() + Lastname.GetHashCode();//Хэш коды вычисляются только по именам и фамилиям
+        }
+
     }
 }
