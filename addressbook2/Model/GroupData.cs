@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace web_addressbook_test
 {
-    public class GroupData : IEquatable<GroupData> //Класс можно сравнивать с другими объектами типа GroupData
+    public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Класс можно сравнивать с другими объектами типа GroupData
     {
         public string name;
         private string header; // = "";
@@ -70,10 +70,25 @@ namespace web_addressbook_test
             return Name == other.Name;//Сравниваем только имена, потому что только они отображаются и нам этого достаточно
         }
 
-        public int GetHashCode()
+        public override int GetHashCode()
         {
             //return 0;//Так будет всегда вызываться сразу метод Equals (если не ноль, тогда сначала сравниваются, хэшкоды, а если они одинаковые, то вызывается Equals)
             return Name.GetHashCode();//Хэш коды вычисляются только по именам
+            //override - переопределяет стандартный метод
+        }
+
+        public override string ToString()//Возвращает строковое представление объектов типа GroupData
+        {
+            return "name=" + Name;
+        }
+
+        public int CompareTo(GroupData other) //GroupData other - объект с которым сравниваем текущий
+        {//(вернёт 1, если текущий объект > other) (вернёт 0, если они равны) (вернёт -1, если текущий < other)
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return Name.CompareTo(other.Name);
         }
     }
 }

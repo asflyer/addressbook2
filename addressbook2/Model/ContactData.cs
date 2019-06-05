@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace web_addressbook_test
 {
-    public class ContactData : IEquatable<ContactData>
+    public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         public string firstname;
         public string middlename;
@@ -86,14 +86,28 @@ namespace web_addressbook_test
             {
                 return true;
             }
-            return (Firstname == other.Firstname)&&(Lastname == other.Lastname);//Не уверен, что так можно
+            return (Firstname == other.Firstname) && (Lastname == other.Lastname);//Не уверен, что так можно
         }
 
-        public int GetHashCode()
+        public override int GetHashCode()
         {
             //return 0;//Так будет всегда вызываться сразу метод Equals (если не ноль, тогда сначала сравниваются, хэшкоды, а если они одинаковые, то вызывается Equals)
             return Firstname.GetHashCode() + Lastname.GetHashCode();//Хэш коды вычисляются только по именам и фамилиям
         }
 
+        public override string ToString()//Возвращает строковое представление объектов типа GroupData
+        {
+            return "firstname=" + Firstname;
+        }
+
+        public int CompareTo(ContactData other) //GroupData other - объект с которым сравниваем текущий
+        {//(вернёт 1, если текущий объект > other) (вернёт 0, если они равны) (вернёт -1, если текущий < other)
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            return Firstname.CompareTo(other.Firstname);
+
+        }
     }
 }

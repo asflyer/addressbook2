@@ -24,7 +24,12 @@ namespace web_addressbook_test
 
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
+            oldGroups.Add(group);
+
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
 
             
 
@@ -44,10 +49,18 @@ namespace web_addressbook_test
             app.Groups.Create(group);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
+
+            oldGroups.Add(group);
+
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
         }
 
+
+        /*
         [Test]//Тест для того, чтобы проверить, что наши проверки работают
+               
         public void BadGroupCreationTest()
         {
             GroupData group = new GroupData("a")//группа с одинарной кавычкой не создается (багуля) - new GroupData("a'a")
@@ -60,8 +73,12 @@ namespace web_addressbook_test
             app.Groups.Create(group);
 
             List<GroupData> newGroups = app.Groups.GetGroupList();
-            Assert.AreEqual(oldGroups.Count + 1, newGroups.Count);
-        }
+            oldGroups.Add(group);
 
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+        }
+        */
     }
 }

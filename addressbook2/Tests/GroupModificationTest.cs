@@ -24,9 +24,17 @@ namespace web_addressbook_test
             int N = 0;//Порядковый номер изменяемой группы начиная с нуля!!!
 
             app.Groups.GroupExist();
-
+            List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Modify(N, newData);
-   
+                        
+            List<GroupData> newGroups = app.Groups.GetGroupList();
+
+            oldGroups[N].Name = newData.Name;
+
+            oldGroups.Sort();
+            newGroups.Sort();
+            Assert.AreEqual(oldGroups, newGroups);
+
         }
 
     }

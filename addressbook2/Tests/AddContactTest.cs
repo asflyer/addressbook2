@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -15,15 +16,26 @@ namespace web_addressbook_test
         [Test]
         public void AddContactTestCase()
         {
+            //Тестовые данные
             ContactData contact = new ContactData("111");
             contact.Middlename = "222";
             contact.Lastname = "333";
             contact.Nickname = "444";
             //Остальные поля в функции FillContactData закомментировны. Будут тянуться по-умолчанию. 
             //Для заполнения других полей нужно создать конструктор в ContactData и добавить сюда заполняемые строки
-            app.Contacts.AddContact(contact);
 
-               
+            List<ContactData> oldContacts = app.Contacts.GetContactList();//Читаем список контактов ДО теста
+
+            app.Contacts.AddContact(contact);//ТЕСТ. Создает новый контакт
+
+            oldContacts.Add(contact);//Добавляем в сохраненный массив данных созданный контакт (*)
+
+            List<ContactData> newContacts = app.Contacts.GetContactList(); //Считываем список контактов ПОСЛЕ
+            oldContacts.Sort(); //Сортируем оба списка одинаково (не суть как)
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);//Сравниваем массив контактов ДО+новый (*) и массив после 
+
+
         }
         
     }

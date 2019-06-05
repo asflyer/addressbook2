@@ -106,13 +106,13 @@ namespace web_addressbook_test
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
-            driver.FindElement(By.XPath("//input[@value='Send e-Mail']"));
+            driver.FindElement(By.CssSelector("div.msgbox"));//ожидание сообщения об успешном успехе ))
             return this;
         }
 
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + index + "]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index+1) + "]")).Click();
             return this;
         }
 

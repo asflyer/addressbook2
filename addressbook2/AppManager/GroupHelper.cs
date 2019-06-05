@@ -78,7 +78,7 @@ namespace web_addressbook_test
         {
             //Переходим на страничку group page
             driver.FindElement(By.LinkText("group page")).Click();
-            driver.FindElement(By.Name("new"));
+            //driver.FindElement(By.Name("new"));
             return this;
         }
 
