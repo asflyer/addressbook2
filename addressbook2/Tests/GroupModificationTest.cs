@@ -30,7 +30,8 @@ namespace web_addressbook_test
             List<GroupData> newGroups = app.Groups.GetGroupList();
 
             oldGroups[N].Name = newData.Name;
-
+            oldGroups[N].Header = newData.Header;
+            oldGroups[N].Footer = newData.Footer;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);

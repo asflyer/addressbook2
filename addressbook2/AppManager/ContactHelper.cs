@@ -128,14 +128,14 @@ namespace web_addressbook_test
             {
 
                 contacts.Add(new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, "", element.FindElement(By.XPath(".//td[2]")).Text));
-
-
+                
+                
                 /*
                 Алгоритм получения списка контактов должен быть такой:
                 1.Получаем список всех строк таблицы контактов(это элементы с именем entry)
                 2.В цикле пробегаемся по каждой строке, и с помощью element.FindElements получаем список ячеек(это элементы с тегом td)
                 3.Берём текст из ячеек с нужным нам индексом(cells[1].Text)
-
+                
                 */
 
             }

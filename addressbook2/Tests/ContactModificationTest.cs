@@ -17,16 +17,19 @@ namespace web_addressbook_test
 
             app.Contacts.ContactExist();
             List<ContactData> oldContacts = app.Contacts.GetContactList();
-
+            oldContacts.Sort();
             app.Contacts.Modify(N, newData);
 
             List<ContactData> newContacts = app.Contacts.GetContactList(); //Считываем список контактов ПОСЛЕ
 
             oldContacts[N].Firstname = newData.Firstname;
-            oldContacts.Sort(); //Сортируем оба списка одинаково (не суть как)
+            oldContacts[N].Lastname = newData.Lastname;
+            oldContacts[N].Middlename = newData.Middlename;
+            oldContacts.Sort();
+            //oldContacts.Sort((emp1, emp2) => emp1.lastname.CompareTo(emp2.lastname));
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);//Сравниваем массив контактов ДО+новый (*) и массив после 
-
+            
         }
 
     }
