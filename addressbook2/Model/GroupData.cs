@@ -8,21 +8,22 @@ namespace web_addressbook_test
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Класс можно сравнивать с другими объектами типа GroupData
     {
-        public string name;
-        private string header; // = "";
-
+        
         public GroupData(string name)
         {
-            this.name = name;
+            Name = name; //Для свойства с автомат реализацией - присваивание свойства
+            //this.name = name;// Для записи через геттер/сеттер - присваивание поля
         }
         //для обратной совместимости вносим новый конструктор с тремя параметрами
         public GroupData (string name, string header, string footer)
         {
-            this.name = name;
-            this.header = header;
-            this.footer = footer;
+            Name = name;
+            Header = header;
+            Footer = footer;
         }
-        public string Name
+
+        public string Name { get; set; } //Свойство с автоматической реализацией (то же самое, что и запись через геттер и сеттер ниже)
+        /*public string Name
         {
             get
             {
@@ -32,30 +33,12 @@ namespace web_addressbook_test
             {
                 name = value;
             }
-        }
-        public string Header
-        {
-            get
-            {
-                return header;
-            }
-            set
-            {
-                header = value;
-            }
-        }
-        public string footer = "";
-        public string Footer
-        {
-            get
-            {
-                return footer;
-            }
-            set
-            {
-                footer = value;
-            }
-        }
+        }*/
+        public string Header { get; set; }
+        
+        public string Footer { get; set; }
+
+        public string ID { get; set; }
 
         public bool Equals(GroupData other)
         {

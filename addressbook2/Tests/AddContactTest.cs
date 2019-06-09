@@ -17,7 +17,7 @@ namespace web_addressbook_test
         public void AddContactTestCase()
         {
             //Тестовые данные
-            ContactData contact = new ContactData("111");
+            ContactData contact = new ContactData("14565");
             contact.Middlename = "222";
             contact.Lastname = "333";
             contact.Nickname = "444";
@@ -27,6 +27,7 @@ namespace web_addressbook_test
             List<ContactData> oldContacts = app.Contacts.GetContactList();//Читаем список контактов ДО теста
 
             app.Contacts.AddContact(contact);//ТЕСТ. Создает новый контакт
+            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
 
             oldContacts.Add(contact);//Добавляем в сохраненный массив данных созданный контакт (*)
 

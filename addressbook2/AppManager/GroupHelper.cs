@@ -27,18 +27,33 @@ namespace web_addressbook_test
             return this;
         }
 
+        public int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count;
+        }
+
+        private List<GroupData> groupCash = null;
+
         public List<GroupData> GetGroupList()
         {
-            manager.Navigator.GoToGroupPage();
-
-            List<GroupData> groups = new List<GroupData>();
-
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); //Коллекция (группа, множество) элементов типа IwebElement
-            foreach(IWebElement element in elements) //Для каждого элемента в коллекции
+            if (groupCash == null)
             {
-                groups.Add(new GroupData(element.Text)); //Преобразуем объекты IWebElement в объекты типа GroupData
+                groupCash = new List<GroupData>();
+                manager.Navigator.GoToGroupPage();
+
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group")); //Коллекция (группа, множество) элементов типа IwebElement
+                foreach (IWebElement element in elements) //Для каждого элемента в коллекции
+                {
+                    groupCash.Add(new GroupData(element.Text)
+                    {
+                        ID = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                        
+                }
             }
-            return groups;
+                        
+            return new List<GroupData>(groupCash);
+            //Также добавил (groupCash = null;) в метод ReturnToGroupPage для обнуления списка после тестов добавления, удаления, модификации
         }
 
         public GroupHelper Modify(int v, GroupData newData)
@@ -79,6 +94,7 @@ namespace web_addressbook_test
             //Переходим на страничку group page
             driver.FindElement(By.LinkText("group page")).Click();
             //driver.FindElement(By.Name("new"));
+            groupCash = null;
             return this;
         }
 

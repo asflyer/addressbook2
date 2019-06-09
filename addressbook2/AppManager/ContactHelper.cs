@@ -58,6 +58,7 @@ namespace web_addressbook_test
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             driver.FindElement(By.CssSelector("div.msgbox"));//ожидание сообщения об успешном удалении контакта
+            contactCash = null;
             return this;
         }
 
@@ -75,6 +76,7 @@ namespace web_addressbook_test
             //Подтверждаем создание
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
             driver.FindElement(By.LinkText("home page")).Click();
+            contactCash = null;
             return this;
         }
 
@@ -107,6 +109,7 @@ namespace web_addressbook_test
         {
             driver.FindElement(By.Name("update")).Click();
             driver.FindElement(By.CssSelector("div.msgbox"));//ожидание сообщения об успешном успехе ))
+            contactCash = null;
             return this;
         }
 
@@ -116,30 +119,61 @@ namespace web_addressbook_test
             return this;
         }
 
+        public int GetContactCount()
+        {
+            manager.Navigator.OpenHomePage();//Пришлось добавить иначе Тест начинает считать контакты на странице "Record successful deleted"
+            return driver.FindElements(By.CssSelector("[ name = 'entry' ]")).Count;
+        }
+
+        private List<ContactData> contactCash = null;
+        
         public List<ContactData> GetContactList()
         {
-            manager.Navigator.OpenHomePage();
-
-            List<ContactData> contacts = new List<ContactData>();
-
-            ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("[ name = 'entry' ]")); //ищем элемент с аттрибутом name = entry (привет CSS селекторы)
-
-            foreach (IWebElement element in elements) //Для каждого элемента в коллекции
+            /*
+            Алгоритм получения списка контактов должен быть такой:
+            1.Получаем список всех строк таблицы контактов(это элементы с именем entry)
+            2.В цикле пробегаемся по каждой строке, и с помощью element.FindElements получаем список ячеек(это элементы с тегом td)
+            3.Берём текст из ячеек с нужным нам индексом(cells[1].Text)
+            */
+            if (contactCash == null)
             {
+                contactCash = new List<ContactData>();
+                manager.Navigator.OpenHomePage();
+                  
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("[ name = 'entry' ]")); //ищем элемент с аттрибутом name = entry (привет CSS селекторы)
 
-                contacts.Add(new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, "", element.FindElement(By.XPath(".//td[2]")).Text));
-                
-                
-                /*
-                Алгоритм получения списка контактов должен быть такой:
-                1.Получаем список всех строк таблицы контактов(это элементы с именем entry)
-                2.В цикле пробегаемся по каждой строке, и с помощью element.FindElements получаем список ячеек(это элементы с тегом td)
-                3.Берём текст из ячеек с нужным нам индексом(cells[1].Text)
-                
-                */
+                foreach (IWebElement element in elements) //Для каждого элемента в коллекции
+                {
+                    // так раньше работало
+                    ContactData contact = new ContactData(element.FindElement(By.XPath(".//td[3]")).Text, "", element.FindElement(By.XPath(".//td[2]")).Text);
 
+                    
+                    contact.ContactID = element.FindElement(By.TagName("input")).GetAttribute("value");
+                    contactCash.Add(contact);
+                    //
+
+                    //так херняъ
+                    /*
+                    contactCash.Add(new ContactData(element.Text)
+                    {
+                        ContactID = element.FindElement(By.TagName("input")).GetAttribute("value")
+                        element.FindElement(By.XPath(".//td[3]")),
+                        //Middlename = "",
+                        Lastname = element.FindElement(By.XPath(".//td[2]"))
+                    });
+
+//                    (element.FindElement(By.XPath(".//td[3]")).Text, "", element.FindElement(By.XPath(".//td[2]")).Text)
+                    /*groupCash.Add(new GroupData(element.Text)
+                    {
+                        ID = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                    */
+                    
+                }
+                
             }
-            return contacts;
+            return new List<ContactData>(contactCash);
+
         }
 
     }

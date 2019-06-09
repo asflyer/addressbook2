@@ -23,15 +23,24 @@ namespace web_addressbook_test
 
             app.Groups.GroupExist();
             List<GroupData> oldGroups = app.Groups.GetGroupList();
-
+            GroupData toBeRemoved = oldGroups[0];
             app.Groups.Remove(0); //Указываем номер группы для удаления
 
+            Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
+
             List<GroupData> newGroups = app.Groups.GetGroupList();
+            
 
             oldGroups.RemoveAt(0); 
             
             Assert.AreEqual(oldGroups, newGroups); //Стандартный метод сравнения
             Equals(oldGroups, newGroups); //Метод созданный нами ( в GroupData )
+
+            foreach (GroupData group in newGroups)
+            {
+                Assert.AreNotEqual(group.ID, toBeRemoved.ID);
+            }
+
 
         }
 

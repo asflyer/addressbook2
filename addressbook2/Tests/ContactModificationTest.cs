@@ -17,9 +17,10 @@ namespace web_addressbook_test
 
             app.Contacts.ContactExist();
             List<ContactData> oldContacts = app.Contacts.GetContactList();
-            oldContacts.Sort();
+            ContactData toBeModifyed = oldContacts[N];
             app.Contacts.Modify(N, newData);
 
+            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
             List<ContactData> newContacts = app.Contacts.GetContactList(); //Считываем список контактов ПОСЛЕ
 
             oldContacts[N].Firstname = newData.Firstname;
@@ -29,7 +30,13 @@ namespace web_addressbook_test
             //oldContacts.Sort((emp1, emp2) => emp1.lastname.CompareTo(emp2.lastname));
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);//Сравниваем массив контактов ДО+новый (*) и массив после 
-            
+            foreach (ContactData contact in newContacts)
+            {
+                if (contact.ContactID == toBeModifyed.ContactID)
+                {
+                    Assert.AreEqual(newData.Firstname, contact.Firstname);
+                }
+            }
         }
 
     }

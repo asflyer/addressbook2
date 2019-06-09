@@ -15,16 +15,21 @@ namespace web_addressbook_test
             app.Contacts.ContactExist();
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
-
+            ContactData toBeRemoved = oldContacts[N];
             app.Contacts.RemoveContact(N);
+
+            Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
 
             List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts.RemoveAt(N);//
 
             Assert.AreEqual(oldContacts, newContacts); //Стандартный метод сравнения
-            //Equals(oldGroups, newGroups); //Метод созданный нами ( в GroupData )
-
+                                                       //Equals(oldGroups, newGroups); //Метод созданный нами ( в GroupData )
+            foreach (ContactData contact in newContacts)
+            {
+                Assert.AreNotEqual(contact.ContactID, toBeRemoved.ContactID);
+            }
         }
         
     }

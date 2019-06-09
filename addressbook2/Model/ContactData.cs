@@ -8,9 +8,6 @@ namespace web_addressbook_test
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        public string firstname;
-        public string middlename;
-        public string lastname;
         public string nickname = "1";
         public string company = "2";
         public string address = "2";
@@ -22,60 +19,25 @@ namespace web_addressbook_test
 
         public ContactData(string firstname)
         {
-            this.firstname = firstname;
+            Firstname = firstname;
         }
         public ContactData(string firstname, string middlename, string lastname)
         {
-            this.firstname = firstname;
-            this.middlename = middlename;
-            this.lastname = lastname;
+            Firstname = firstname;
+            Middlename = middlename;
+            Lastname = lastname;
 
         }
-        public string Firstname
-        {
-            get
-            {
-                return firstname;
-            }
-            set
-            {
-                firstname = value;
-            }
-        }
-        public string Middlename
-        {
-            get
-            {
-                return middlename;
-            }
-            set
-            {
-                middlename = value;
-            }
-        }
-        public string Lastname
-        {
-            get
-            {
-                return lastname;
-            }
-            set
-            {
-                lastname = value;
-            }
-        }
-        public string Nickname
-        {
-            get
-            {
-                return nickname;
-            }
-            set
-            {
-                nickname = value;
-            }
-        }
+        public string Firstname { get; set; }
 
+        public string Middlename { get; set; }
+
+        public string Lastname { get; set; }
+
+        public string Nickname { get; set; }
+
+        public string ContactID { get; set; }
+        
         public bool Equals(ContactData other)
         {
             if (object.ReferenceEquals(other, null))//Если объект с которым сравниваем это null
