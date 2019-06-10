@@ -10,10 +10,10 @@ namespace web_addressbook_test
         [Test]
         public void ContactModificationTestCase()
         {
-            ContactData newData = new ContactData("456"); //newData.Firstname
-            newData.Middlename = "456";
-            newData.Lastname = "46";
-            int N = 0;//порядковый номер записи на странице home  начиная с нуля!!!
+            ContactData newData = new ContactData("4646"); //newData.Firstname
+            //newData.Middlename = "56";
+            newData.Lastname = "53126";
+            int N = 1;//порядковый номер записи на странице home  начиная с нуля!!!
 
             app.Contacts.ContactExist();
             List<ContactData> oldContacts = app.Contacts.GetContactList();
@@ -25,7 +25,7 @@ namespace web_addressbook_test
 
             oldContacts[N].Firstname = newData.Firstname;
             oldContacts[N].Lastname = newData.Lastname;
-            oldContacts[N].Middlename = newData.Middlename;
+            //oldContacts[N].Middlename = newData.Middlename;
             oldContacts.Sort();
             //oldContacts.Sort((emp1, emp2) => emp1.lastname.CompareTo(emp2.lastname));
             newContacts.Sort();
@@ -35,6 +35,7 @@ namespace web_addressbook_test
                 if (contact.ContactID == toBeModifyed.ContactID)
                 {
                     Assert.AreEqual(newData.Firstname, contact.Firstname);
+                    Assert.AreEqual(newData.Lastname, contact.Lastname);
                 }
             }
         }

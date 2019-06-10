@@ -21,11 +21,11 @@ namespace web_addressbook_test
             GroupData newData = new GroupData("zzz");
             newData.Header = null; 
             newData.Footer = "xxx";
-            int N = 0;//Порядковый номер изменяемой группы начиная с нуля!!!
+            int N = 1;//Порядковый номер изменяемой группы начиная с нуля!!!
 
             app.Groups.GroupExist();
             List<GroupData> oldGroups = app.Groups.GetGroupList();
-            GroupData toBeModifyed = oldGroups[0];
+            GroupData toBeModifyed = oldGroups[N];
             app.Groups.Modify(N, newData);
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
             List<GroupData> newGroups = app.Groups.GetGroupList();

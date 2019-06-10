@@ -18,9 +18,9 @@ namespace web_addressbook_test
         {
             //Тестовые данные
             ContactData contact = new ContactData("14565");
-            contact.Middlename = "222";
-            contact.Lastname = "333";
-            contact.Nickname = "444";
+            contact.Middlename = "321";
+            contact.Lastname = "1";
+            contact.Nickname = "432144";
             //Остальные поля в функции FillContactData закомментировны. Будут тянуться по-умолчанию. 
             //Для заполнения других полей нужно создать конструктор в ContactData и добавить сюда заполняемые строки
 
