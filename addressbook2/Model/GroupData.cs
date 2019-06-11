@@ -67,6 +67,7 @@ namespace web_addressbook_test
 
         public int CompareTo(GroupData other) //GroupData other - объект с которым сравниваем текущий
         {//(вернёт 1, если текущий объект > other) (вернёт 0, если они равны) (вернёт -1, если текущий < other)
+
             if (Object.ReferenceEquals(other, null))
             {
                 return 1;

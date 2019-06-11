@@ -48,7 +48,12 @@ namespace web_addressbook_test
             {
                 return true;
             }
-            return (Firstname == other.Firstname) && (Lastname == other.Lastname) ;//Не уверен, что так можно
+            if (Firstname == other.Firstname)
+            {
+                return Lastname == other.Lastname;
+            }
+            return Firstname == other.Firstname;
+            //return (Firstname == other.Firstname) && (Lastname == other.Lastname) ;//Не уверен, что так можно
         }
 
         public override int GetHashCode()
@@ -62,6 +67,7 @@ namespace web_addressbook_test
             return (" firstname=" + Firstname + " lastname="+ Lastname);
         }
 
+        /*
         public int CompareTo(ContactData other) //GroupData other - объект с которым сравниваем текущий
         {//(вернёт 1, если текущий объект > other) (вернёт 0, если они равны) (вернёт -1, если текущий < other)
             if (Object.ReferenceEquals(other, null))
@@ -70,6 +76,20 @@ namespace web_addressbook_test
             }
             return Firstname.CompareTo(other.Firstname) & Lastname.CompareTo(other.Lastname) ;
 
+        }
+        */
+        public int CompareTo(ContactData other) //GroupData other - объект с которым сравниваем текущий
+        {//(вернёт 1, если текущий объект > other) (вернёт 0, если они равны) (вернёт -1, если текущий < other)
+
+            if (Object.ReferenceEquals(other, null))
+            {
+                return 1;
+            }
+            if(Firstname.CompareTo(other.Firstname) == 0)
+            {
+                return Lastname.CompareTo(other.Lastname);
+            }
+            return Firstname.CompareTo(other.Firstname);
         }
     }
 }

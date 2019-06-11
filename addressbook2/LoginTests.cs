@@ -25,7 +25,7 @@ namespace web_addressbook_test
         }
 
         [Test]
-        public void LoginWithInValidCredentails()
+        public void LoginWithInvalidCredentails()
         {
             //Подготовка
             app.Auth.Logout();//На случай того, если после прошлого теста остались в системе

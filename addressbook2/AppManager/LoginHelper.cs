@@ -44,8 +44,17 @@ namespace web_addressbook_test
         public bool IsLoggedIn(AccountData account)
         {
             return IsLoggedIn()
-                && driver.FindElement(By.Name ("logout")).FindElement(By.TagName("b")).Text == "(" + account.Username + ")";
+                && GetLoggetUderName() == account.Username;
+                
+        }
 
+        private string GetLoggetUderName()
+        {
+            string text = driver.FindElement(By.Name("logout")).FindElement(By.TagName("b")).Text;
+            return text.Substring(1, text.Length - 2); //отрезаем первый и последний символы (потому что начинается с нуля, а длина меньше на этот ноль и последний символ
+            //Потому что FindElement(By.TagName("b")) возвращает "(admin)"
+            // == System.String.Format("(${0})", account.Username);
+            //Text == "(" + account.Username + ")" можно записать как Text == System.String.Format("(${0})", account.Username);
         }
 
         public void Logout()
