@@ -44,7 +44,7 @@ namespace web_addressbook_test
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
-            InitContactModification(0);
+            InitContactModification(index);
             string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
             string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
             string address = driver.FindElement(By.Name("address")).GetAttribute("value");
@@ -65,9 +65,41 @@ namespace web_addressbook_test
                 Email2 = email2,
                 Email3 = email3
             };
+        }
+
+        public ContactData GetContactDetails(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            OpenContactDetailsPage(index);
+
+            string contactMainInfo = driver.FindElement(By.CssSelector("div.content")).FindElement(By.TagName("b")).Text;//firstname middlename lastname
+
+            //nickname, Company, Address, AddressSecondary, NotesSecondary
+            string contactDetails = driver.FindElement(By.CssSelector("div.content")).FindElement(By.TagName("br")).Text;//все остальное
+                                                                                                                         //Нужно проверить, что br != null
 
 
-            throw new NotImplementedException();
+
+            string title = driver.FindElement(By.CssSelector("div.content")).FindElement(By.TagName("i")).Text;
+            string homePhone = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='H: ']")).Text;
+            string mobilePhone = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='M: ']")).Text;
+            string workPhone = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='W: ']")).Text;
+            string faxPhone = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='F: ']")).Text;
+            string secondaryHome = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='P: ']")).Text;
+            string homePage = driver.FindElement(By.CssSelector("div.content")).FindElement(By.TagName("label")).Text;
+            string email = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='E-mail:']")).Text;
+            string email2 = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='E-mail2:']")).Text;
+            string email3 = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='E-mail3:']")).Text;
+            string birthday = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='Birthday ']")).Text;
+            string anniversary = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='Anniversary ']")).Text;
+            
+
+
+            return new ContactData(contactMainInfo)
+            {
+                ContactMainInfo = contactMainInfo,
+                ContactDetails = contactDetails
+            };
         }
 
         public ContactHelper Modify(int v, ContactData newData)
@@ -169,6 +201,13 @@ namespace web_addressbook_test
             return this;
         }
 
+        public ContactHelper OpenContactDetailsPage(int index)
+        {
+            driver.FindElement(By.Name("entry")).FindElement(By.TagName("td")).FindElement(By.TagName("a")).Click();
+            //driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
+            return this;
+        }
+
         public int GetContactCount()
         {
             manager.Navigator.OpenHomePage();//Пришлось добавить иначе Тест начинает считать контакты на странице "Record successful deleted"
@@ -202,7 +241,7 @@ namespace web_addressbook_test
                     contactCash.Add(contact);
                     //
 
-                    //так херняъ
+                    //так ерунда
                     /*
                     contactCash.Add(new ContactData(element.Text)
                     {

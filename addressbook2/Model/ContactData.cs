@@ -16,9 +16,13 @@ namespace web_addressbook_test
         public string telmobile = "";
         public string telwork = "";
         public string email = "";
+        public string email2 = "";
+        public string email3 = "";
         public string byear = "1999";
         private string allPhones;
         private string allemail;
+        private string contactDetails;
+        private string contactMainInfo;
 
         public ContactData(string firstname)
         {
@@ -93,7 +97,44 @@ namespace web_addressbook_test
             }
         }
 
+        public string ContactMainInfo
+        {
+            get
+            {
+                if (contactMainInfo != null)
+                {
+                    return contactMainInfo;
+                }
+                else
+                {
+                    return ((Firstname) + (Middlename) + (Lastname)).Trim();
+                }
+            }
+            set
+            {
+                contactMainInfo = value;
+            }
+        }
 
+        public string ContactDetails
+        {
+            get
+            {
+                if (contactDetails != null)
+                {
+                    return contactDetails;
+                }
+                else
+                {
+                    return ((Firstname) + (Middlename) + (Lastname)).Trim();
+                }
+            }
+            set
+            {
+                contactDetails = value;
+            }
+        }
+        
         private string Cleanup(string phone)
         {
             if (phone == null || phone == "")

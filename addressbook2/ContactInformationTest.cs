@@ -31,5 +31,24 @@ namespace web_addressbook_test
             Assert.AreEqual(fromTable.AllEmail, fromForm.AllEmail);
         }
 
+
+        [Test]
+        public void ContactInformationDetailsCase()
+        {
+            int N = 0;
+            //номер контакта для проверки
+
+            ContactData fromTable = app.Contacts.GetContactInformationFromTable(N);
+            ContactData fromDetails = app.Contacts.GetContactDetails(N);
+
+
+            //verification
+
+            Assert.AreEqual(fromTable, fromDetails);
+            Assert.AreEqual(fromTable.Address, fromDetails.Address);
+            Assert.AreEqual(fromTable.AllPhones, fromDetails.AllPhones);
+            Assert.AreEqual(fromTable.AllEmail, fromDetails.AllEmail);
+        }
+
     }
 }
