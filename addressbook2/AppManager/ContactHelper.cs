@@ -9,7 +9,7 @@ using OpenQA.Selenium.Support;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
-
+using System.Text.RegularExpressions;
 
 namespace web_addressbook_test
 {
@@ -224,6 +224,14 @@ namespace web_addressbook_test
             }
             return new List<ContactData>(contactCash);
 
+        }
+
+        public int GetNumberOfSearchResults()
+        {
+            manager.Navigator.OpenHomePage();
+            string text = driver.FindElement(By.TagName("label")).Text;
+            Match m = new Regex(@"\d+").Match(text);
+            return Int32.Parse(m.Value);
         }
 
     }

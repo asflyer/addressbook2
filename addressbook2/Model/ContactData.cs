@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace web_addressbook_test
@@ -99,9 +100,10 @@ namespace web_addressbook_test
             {
                 return "";
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return Regex.Replace(phone, "[  -- ()]", "") + "\r\n";
+            //return Regex.Replace(phone, @"\W", "") + "\r\n";
+            //return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
 
-            
         }
 
         public bool Equals(ContactData other)

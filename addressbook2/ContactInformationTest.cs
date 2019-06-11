@@ -16,8 +16,11 @@ namespace web_addressbook_test
 
         public void ContactInformationTestCase()
         {
-            ContactData fromTable = app.Contacts.GetContactInformationFromTable(0);
-            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
+            int N = 0;
+            //номер контакта для проверки
+
+            ContactData fromTable = app.Contacts.GetContactInformationFromTable(N);
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(N);
 
 
             //verification
