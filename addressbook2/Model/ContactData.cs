@@ -16,15 +16,17 @@ namespace web_addressbook_test
         public string telwork = "";
         public string email = "";
         public string byear = "1999";
+        private string allPhones;
+        private string allemail;
 
         public ContactData(string firstname)
         {
             Firstname = firstname;
         }
-        public ContactData(string firstname, string middlename, string lastname)
+        public ContactData(string firstname, /*string middlename, */string lastname)
         {
             Firstname = firstname;
-            Middlename = middlename;
+            //Middlename = middlename;
             Lastname = lastname;
 
         }
@@ -36,8 +38,71 @@ namespace web_addressbook_test
 
         public string Nickname { get; set; }
 
+        public string Address { get; set; }
+
+        public string HomePhone { get; set; }
+
+        public string MobilePhone { get; set; }
+
+        public string WorkPhone { get; set; }
+
+        public string Email1 { get; set; }
+
+        public string Email2 { get; set; }
+
+        public string Email3 { get; set; }
+
         public string ContactID { get; set; }
-        
+
+        public string AllPhones
+        {
+            get
+            {
+                if (allPhones != null)
+                {
+                    return allPhones;
+                }
+                else
+                {
+                    return (Cleanup(HomePhone) + Cleanup(MobilePhone) + Cleanup(WorkPhone)).Trim();
+                }
+            }
+            set
+            {
+                allPhones = value;
+            }
+        }
+
+        public string AllEmail
+        {
+            get
+            {
+                if (allemail != null)
+                {
+                    return allemail;
+                }
+                else
+                {
+                    return (Cleanup(Email1) + Cleanup(Email2) + Cleanup(Email3)).Trim();
+                }
+            }
+            set
+            {
+                allemail = value;
+            }
+        }
+
+        private string Cleanup(string phone)
+        {
+            if (phone == null || phone == "")
+            {
+                return "";
+            }
+            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+
+            
+        }
+
         public bool Equals(ContactData other)
         {
             if (object.ReferenceEquals(other, null))//Если объект с которым сравниваем это null
@@ -48,12 +113,12 @@ namespace web_addressbook_test
             {
                 return true;
             }
-            if (Firstname == other.Firstname)
+            /*if (Firstname == other.Firstname)
             {
                 return Lastname == other.Lastname;
             }
-            return Firstname == other.Firstname;
-            //return (Firstname == other.Firstname) && (Lastname == other.Lastname) ;//Не уверен, что так можно
+            return Firstname == other.Firstname; */
+            return (Firstname == other.Firstname) && (Lastname == other.Lastname) ;//Не уверен, что так можно
         }
 
         public override int GetHashCode()
