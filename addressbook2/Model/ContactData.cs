@@ -9,20 +9,11 @@ namespace web_addressbook_test
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        public string nickname = "1";
-        public string company = "2";
-        public string address = "2";
-        public string telhome = "";
-        public string telmobile = "";
-        public string telwork = "";
-        public string email = "";
-        public string email2 = "";
-        public string email3 = "";
-        public string byear = "1999";
+
         private string allPhones;
         private string allemail;
         private string contactDetails;
-        private string contactMainInfo;
+        //private string contactMainInfo;
 
         public ContactData(string firstname)
         {
@@ -35,30 +26,32 @@ namespace web_addressbook_test
             Lastname = lastname;
 
         }
+
+        public ContactData()
+        {
+        }
+          
         public string Firstname { get; set; }
-
         public string Middlename { get; set; }
-
         public string Lastname { get; set; }
-
         public string Nickname { get; set; }
-
         public string Address { get; set; }
-
         public string HomePhone { get; set; }
-
         public string MobilePhone { get; set; }
-
         public string WorkPhone { get; set; }
-
         public string Email1 { get; set; }
-
         public string Email2 { get; set; }
-
         public string Email3 { get; set; }
-
         public string ContactID { get; set; }
-
+        public string Birthday { get; set; }
+        public string Company { get; set; }
+        public string Anniversary { get; set; }
+        public string SecondaryHome { get; set; }
+        public string FaxPhone { get; set; }
+        public string HomePage { get; set; }
+        public string Title { get; set; }
+        public string AddressSecondary { get; set; }
+        public string NotesSecondary { get; set; }
         public string AllPhones
         {
             get
@@ -97,25 +90,6 @@ namespace web_addressbook_test
             }
         }
 
-        public string ContactMainInfo
-        {
-            get
-            {
-                if (contactMainInfo != null)
-                {
-                    return contactMainInfo;
-                }
-                else
-                {
-                    return ((Firstname) + (Middlename) + (Lastname)).Trim();
-                }
-            }
-            set
-            {
-                contactMainInfo = value;
-            }
-        }
-
         public string ContactDetails
         {
             get
@@ -126,15 +100,121 @@ namespace web_addressbook_test
                 }
                 else
                 {
-                    return ((Firstname) + (Middlename) + (Lastname)).Trim();
+                    contactDetails = "";
+
+                    if (Firstname != "")
+                    {
+                        contactDetails += Firstname + " ";
+                    }
+
+                    if (Middlename != "")
+                    {
+                        contactDetails += Middlename + " ";
+                    }
+
+                    if (Lastname != "")
+                    {
+                        contactDetails += Lastname + "\r\n";
+                    }
+
+
+                    if (Nickname != "")
+                    {
+                        contactDetails += Nickname + "\r\n";
+                    }
+
+
+                    if (Title != "")
+                    {
+                        contactDetails += Title + "\r\n";
+                    }
+
+
+                    if (Company != "")
+                    {
+                        contactDetails += Company + "\r\n";
+                    }
+
+                    if (Address != "")
+                    {
+                        contactDetails += Address + "\r\n\r\n";
+                    }
+
+                    if (HomePhone != "")
+                    {
+                        contactDetails += "H: " + Cleanup(HomePhone) ;
+                    }
+
+                    if (MobilePhone != "")
+                    {
+                        contactDetails += "M: " + Cleanup(MobilePhone);
+                    }
+
+                    if (WorkPhone != "")
+                    {
+                        contactDetails += "M: " + Cleanup(WorkPhone) ;
+                    }
+
+                    if (FaxPhone != "")
+                    {
+                        contactDetails += "F: " + Cleanup(FaxPhone) + "\r\n";
+                    }
+
+                    if (Email1 != "")
+                    {
+                        contactDetails += Email1 + "\r\n";
+                    }
+
+                    if (Email2 != "")
+                    {
+                        contactDetails += Email2 + "\r\n";
+                    }
+
+                    if (Email3 != "")
+                    {
+                        contactDetails += Email3 + "\r\n";
+                    }
+
+                    if (HomePage != "")
+                    {
+                        contactDetails += "Homepage:\r\n" + HomePage + "\r\n\r\n";
+                    }
+
+                    if (Birthday != "")
+                    {
+                        contactDetails += Birthday + "\r\n";
+                    }
+
+                    if (Anniversary != "")
+                    {
+                        contactDetails += Anniversary + "\r\n\r\n";
+                    }
+
+                    if (AddressSecondary != "")
+                    {
+                        contactDetails += AddressSecondary + "\r\n\r\n";
+                    }
+                                    
+                    if (SecondaryHome != "")
+                    {
+                        contactDetails += "P: " + SecondaryHome + "\r\n\r\n";
+                    }
+
+                    if (NotesSecondary != "")
+                    {
+                        contactDetails += NotesSecondary + "\r\n";
+                    }
+
+                    return contactDetails.Trim();
                 }
+            
             }
             set
             {
                 contactDetails = value;
             }
         }
-        
+
         private string Cleanup(string phone)
         {
             if (phone == null || phone == "")
@@ -142,8 +222,7 @@ namespace web_addressbook_test
                 return "";
             }
             return Regex.Replace(phone, "[  -- ()]", "") + "\r\n";
-            //return Regex.Replace(phone, @"\W", "") + "\r\n";
-            //return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            //то же самое - return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
 
         }
 
@@ -170,23 +249,12 @@ namespace web_addressbook_test
             //return 0;//Так будет всегда вызываться сразу метод Equals (если не ноль, тогда сначала сравниваются, хэшкоды, а если они одинаковые, то вызывается Equals)
             return Firstname.GetHashCode() + Lastname.GetHashCode() ;//Хэш коды вычисляются только по именам и фамилиям
         }
-
+        
         public override string ToString()//Возвращает строковое представление объектов типа 
         {
             return (" firstname=" + Firstname + " lastname="+ Lastname);
         }
-
-        /*
-        public int CompareTo(ContactData other) //GroupData other - объект с которым сравниваем текущий
-        {//(вернёт 1, если текущий объект > other) (вернёт 0, если они равны) (вернёт -1, если текущий < other)
-            if (Object.ReferenceEquals(other, null))
-            {
-                return 1;
-            }
-            return Firstname.CompareTo(other.Firstname) & Lastname.CompareTo(other.Lastname) ;
-
-        }
-        */
+       
         public int CompareTo(ContactData other) //GroupData other - объект с которым сравниваем текущий
         {//(вернёт 1, если текущий объект > other) (вернёт 0, если они равны) (вернёт -1, если текущий < other)
 

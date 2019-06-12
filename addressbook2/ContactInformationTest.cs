@@ -35,19 +35,19 @@ namespace web_addressbook_test
         [Test]
         public void ContactInformationDetailsCase()
         {
-            int N = 0;
+            int N = 2;
             //номер контакта для проверки
 
-            ContactData fromTable = app.Contacts.GetContactInformationFromTable(N);
+            ContactData fromForm = app.Contacts.GetContactInformationFromEditFormAll(N);
             ContactData fromDetails = app.Contacts.GetContactDetails(N);
 
 
             //verification
 
-            Assert.AreEqual(fromTable, fromDetails);
-            Assert.AreEqual(fromTable.Address, fromDetails.Address);
-            Assert.AreEqual(fromTable.AllPhones, fromDetails.AllPhones);
-            Assert.AreEqual(fromTable.AllEmail, fromDetails.AllEmail);
+            //Assert.AreEqual(fromForm, fromDetails);
+            //Assert.AreEqual(fromForm.ContactMainInfo, fromDetails.ContactMainInfo);
+            Assert.AreEqual(fromForm.ContactDetails, fromDetails.ContactDetails);
+            
         }
 
     }

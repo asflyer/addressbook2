@@ -67,19 +67,101 @@ namespace web_addressbook_test
             };
         }
 
+        public ContactData GetContactInformationFromEditFormAll(int index)
+        {
+            manager.Navigator.OpenHomePage();
+            InitContactModification(index);
+            string firstname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
+            string lastname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string middlename = driver.FindElement(By.Name("middlename")).GetAttribute("value");
+            string nickname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
+            string company = driver.FindElement(By.Name("company")).GetAttribute("value");
+            string title = driver.FindElement(By.Name("title")).GetAttribute("value");
+            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
+            string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
+            string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
+            string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string faxPhone = driver.FindElement(By.Name("fax")).GetAttribute("value");
+            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
+            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
+            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
+            string homePage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
+
+            
+            string bday = driver.FindElement(By.Name("bday")).GetAttribute("value");
+            string bmonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
+            string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
+            int y = Int32.Parse(byear);
+            string bdate = bday + bmonth + byear;
+
+            DateTime ConvertToDateTime(string value)
+            {
+                DateTime convertedDate;
+                    convertedDate = Convert.ToDateTime(value);
+                    Console.WriteLine("'{0}' converts to {1} {2} time.",value, convertedDate,convertedDate.Kind.ToString());
+                return convertedDate;
+            }
+
+            DateTime date = ConvertToDateTime(bdate);
+
+
+            DateTime nowDate = DateTime.Today;
+            int age = nowDate.Year - y;
+            if (date > nowDate.AddYears(-age)) age--;
+
+
+            string birthday = ("Birthday " + bday + ". " + bmonth + " " + byear + " (" + age+ ")");
+            
+
+            string aday = driver.FindElement(By.Name("aday")).GetAttribute("value");
+            string amonth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
+            string ayear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
+            string anniversary = "Anniversary " + aday + ". " + amonth + " " + ayear;
+
+            string addressSecondary = driver.FindElement(By.Name("address2")).GetAttribute("value"); //Вот тут может быть неправильно. Обратить внимание
+            string secondaryHome = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string notesSecondary = driver.FindElement(By.Name("notes")).GetAttribute("value"); //Вот тут может быть неправильно. Обратить внимание
+
+
+            return new ContactData(firstname, lastname)
+            {
+                Middlename = middlename,
+                Nickname = nickname,
+                Company = company,
+                Title = title,
+                Address = address,
+                HomePhone = homePhone,
+                MobilePhone = mobilePhone,
+                WorkPhone = workPhone,
+                FaxPhone = faxPhone,
+                Email1 = email,
+                Email2 = email2,
+                Email3 = email3,
+                HomePage = homePage,
+                Birthday = birthday,
+                Anniversary = anniversary,
+                AddressSecondary = addressSecondary,
+                SecondaryHome = secondaryHome,
+                NotesSecondary = notesSecondary
+            };
+        }
+
         public ContactData GetContactDetails(int index)
         {
             manager.Navigator.OpenHomePage();
             OpenContactDetailsPage(index);
 
-            string contactMainInfo = driver.FindElement(By.CssSelector("div.content")).FindElement(By.TagName("b")).Text;//firstname middlename lastname
+            //string contactMainInfo = driver.FindElement(By.Id("content")).FindElement(By.TagName("b")).Text;//firstname middlename lastname
 
             //nickname, Company, Address, AddressSecondary, NotesSecondary
-            string contactDetails = driver.FindElement(By.CssSelector("div.content")).FindElement(By.TagName("br")).Text;//все остальное
-                                                                                                                         //Нужно проверить, что br != null
 
+            string contactDetails = driver.FindElement(By.Id("content")).Text.Trim();
 
+            //Эта строчка не получается!!!!! Ничего не находит!
+            //string contactDetails = driver.FindElement(By.Id("content")).FindElements(By.TagName("br")).Text;//все остальное
+            //Нужно проверить, что br != null
 
+            /*
             string title = driver.FindElement(By.CssSelector("div.content")).FindElement(By.TagName("i")).Text;
             string homePhone = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='H: ']")).Text;
             string mobilePhone = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='M: ']")).Text;
@@ -91,13 +173,13 @@ namespace web_addressbook_test
             string email2 = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='E-mail2:']")).Text;
             string email3 = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='E-mail3:']")).Text;
             string birthday = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='Birthday ']")).Text;
+            birthday.Substring(0, birthday.Length - 5);
             string anniversary = driver.FindElement(By.CssSelector("div.content")).FindElement(By.XPath(".//*[.='Anniversary ']")).Text;
-            
+            */
 
-
-            return new ContactData(contactMainInfo)
+            return new ContactData()
             {
-                ContactMainInfo = contactMainInfo,
+                //ContactMainInfo = contactMainInfo,
                 ContactDetails = contactDetails
             };
         }
@@ -203,8 +285,8 @@ namespace web_addressbook_test
 
         public ContactHelper OpenContactDetailsPage(int index)
         {
-            driver.FindElement(By.Name("entry")).FindElement(By.TagName("td")).FindElement(By.TagName("a")).Click();
-            //driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
+            //driver.FindElement(By.Name("entry")).FindElement(By.XPath(".//td[6]")).FindElement(By.TagName("a")).Click(); - не понима. почему не работает
+            driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
             return this;
         }
 
