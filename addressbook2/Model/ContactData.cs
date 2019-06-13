@@ -104,107 +104,109 @@ namespace web_addressbook_test
 
                     if (Firstname != "")
                     {
-                        contactDetails += Firstname + " ";
+                        contactDetails += Firstname;
                     }
+                    else Firstname = null;
 
                     if (Middlename != "")
                     {
-                        contactDetails += Middlename + " ";
+                        contactDetails += " " + Middlename;
                     }
+                    else Middlename = null;
 
                     if (Lastname != "")
                     {
-                        contactDetails += Lastname + "\r\n";
+                        contactDetails += " " + Lastname;
                     }
-
+                    else Lastname = null;
 
                     if (Nickname != "")
                     {
-                        contactDetails += Nickname + "\r\n";
+                        contactDetails += "\r\n" + Nickname;
                     }
-
+                    else Nickname = null;
 
                     if (Title != "")
                     {
-                        contactDetails += Title + "\r\n";
+                        contactDetails += "\r\n" + Title;
                     }
-
-
+                    else Title = null;
                     if (Company != "")
                     {
-                        contactDetails += Company + "\r\n";
+                        contactDetails += "\r\n" + Company;
                     }
-
-                    if (Address != "")
+                    else Company = null;
+                    if (Address != null)
                     {
-                        contactDetails += Address + "\r\n\r\n";
+                        contactDetails += "\r\n" + Address;
                     }
-
+                    
                     if (HomePhone != "")
                     {
-                        contactDetails += "H: " + Cleanup(HomePhone) ;
+                        contactDetails += "\r\n\r\n"+ "H: " + HomePhone ;
                     }
+                    else HomePhone = null;
 
                     if (MobilePhone != "")
                     {
-                        contactDetails += "M: " + Cleanup(MobilePhone);
+                        contactDetails += "\r\n" +"M: " + MobilePhone;
                     }
+                    else MobilePhone = null;
 
                     if (WorkPhone != "")
                     {
-                        contactDetails += "M: " + Cleanup(WorkPhone) ;
+                        contactDetails += "\r\n" +"W: " + WorkPhone ;
                     }
+                    else WorkPhone = null;
 
                     if (FaxPhone != "")
                     {
-                        contactDetails += "F: " + Cleanup(FaxPhone) + "\r\n";
+                        contactDetails += "\r\n" + "F: " + FaxPhone;
                     }
-
-                    if (Email1 != "")
+                    else FaxPhone = null;
+                    if (Email1 != null)
                     {
-                        contactDetails += Email1 + "\r\n";
+                        contactDetails += "\r\n\r\n" + Email1;
                     }
-
-                    if (Email2 != "")
+                    if (Email2 != null)
                     {
-                        contactDetails += Email2 + "\r\n";
+                        contactDetails += "\r\n" + Email2;
                     }
-
-                    if (Email3 != "")
+                    if (Email3 != null)
                     {
-                        contactDetails += Email3 + "\r\n";
+                        contactDetails += "\r\n" + Email3;
                     }
-
+                    
                     if (HomePage != "")
                     {
-                        contactDetails += "Homepage:\r\n" + HomePage + "\r\n\r\n";
+                        contactDetails += "\r\n" + "Homepage:\r\n" + HomePage;
                     }
-
+                    else HomePage = null;
                     if (Birthday != "")
                     {
-                        contactDetails += Birthday + "\r\n";
+                        contactDetails += "\r\n\r\n" + Birthday;
                     }
-
+                    else Birthday = null;
                     if (Anniversary != "")
                     {
-                        contactDetails += Anniversary + "\r\n\r\n";
+                        contactDetails += "\r\n"+ Anniversary;
                     }
-
+                    else Anniversary = null;
                     if (AddressSecondary != "")
                     {
-                        contactDetails += AddressSecondary + "\r\n\r\n";
+                        contactDetails += "\r\n\r\n" + AddressSecondary;
                     }
-                                    
+                    
                     if (SecondaryHome != "")
                     {
-                        contactDetails += "P: " + SecondaryHome + "\r\n\r\n";
+                        contactDetails += "\r\n\r\n" + "P: " + SecondaryHome;
                     }
-
+                    else SecondaryHome = null;
                     if (NotesSecondary != "")
                     {
-                        contactDetails += NotesSecondary + "\r\n";
+                        contactDetails += "\r\n\r\n" + NotesSecondary + "\r\n";
                     }
-
+                    else NotesSecondary = null;
                     return contactDetails.Trim();
                 }
             

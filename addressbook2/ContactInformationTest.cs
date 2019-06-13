@@ -16,7 +16,7 @@ namespace web_addressbook_test
 
         public void ContactInformationTestCase()
         {
-            int N = 0;
+            int N = 3;
             //номер контакта для проверки
 
             ContactData fromTable = app.Contacts.GetContactInformationFromTable(N);

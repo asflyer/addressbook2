@@ -20,6 +20,9 @@ namespace web_addressbook_test
         {
         }
 
+        string birthday;
+        string anniversary;
+
         public ContactData GetContactInformationFromTable(int index)
         {
             manager.Navigator.OpenHomePage();
@@ -91,32 +94,43 @@ namespace web_addressbook_test
             string bday = driver.FindElement(By.Name("bday")).GetAttribute("value");
             string bmonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
             string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
-            int y = Int32.Parse(byear);
-            string bdate = bday + bmonth + byear;
 
-            DateTime ConvertToDateTime(string value)
+            if (byear != "0")
             {
-                DateTime convertedDate;
+                int y = Int32.Parse(byear);
+                string bdate = bday + bmonth + byear;
+
+                DateTime ConvertToDateTime(string value)
+                {
+                    DateTime convertedDate;
                     convertedDate = Convert.ToDateTime(value);
-                    Console.WriteLine("'{0}' converts to {1} {2} time.",value, convertedDate,convertedDate.Kind.ToString());
-                return convertedDate;
+                    Console.WriteLine("'{0}' converts to {1} {2} time.", value, convertedDate, convertedDate.Kind.ToString());
+                    return convertedDate;
+                }
+
+                DateTime date = ConvertToDateTime(bdate);
+
+
+                DateTime nowDate = DateTime.Today;
+                int age = nowDate.Year - y;
+                if (date > nowDate.AddYears(-age)) age--;
+                birthday = ("Birthday " + bday + ". " + bmonth + " " + byear + " (" + age + ")");
             }
-
-            DateTime date = ConvertToDateTime(bdate);
-
-
-            DateTime nowDate = DateTime.Today;
-            int age = nowDate.Year - y;
-            if (date > nowDate.AddYears(-age)) age--;
-
-
-            string birthday = ("Birthday " + bday + ". " + bmonth + " " + byear + " (" + age+ ")");
-            
-
+            /*
+            else
+            {
+                birthday = "";
+            }
+            */
             string aday = driver.FindElement(By.Name("aday")).GetAttribute("value");
-            string amonth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
+            //string amonth = driver.FindElement(By.Name("amonth")).GetAttribute("value");
+            string amonth = driver.FindElement(By.XPath("/html/body/div/div[4]/form[1]/select[4]/option[1]")).Text;
             string ayear = driver.FindElement(By.Name("ayear")).GetAttribute("value");
-            string anniversary = "Anniversary " + aday + ". " + amonth + " " + ayear;
+
+            if (ayear != "")
+            {
+                anniversary = "Anniversary " + aday + ". " + amonth + " " + ayear;
+            }
 
             string addressSecondary = driver.FindElement(By.Name("address2")).GetAttribute("value"); //Вот тут может быть неправильно. Обратить внимание
             string secondaryHome = driver.FindElement(By.Name("phone2")).GetAttribute("value");
