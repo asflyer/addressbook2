@@ -254,7 +254,9 @@ namespace web_addressbook_test
         
         public override string ToString()//Возвращает строковое представление объектов типа 
         {
-            return (" firstname=" + Firstname + " lastname="+ Lastname);
+            return ("firstname= " + Firstname + "\nlastname= "+ Lastname + "\nAddress= " + "\nMiddlename= " + Middlename + "\nNickname= " + Nickname
+                + Address + "\nMobilePhone= " + MobilePhone + "\nWorkPhone= " + WorkPhone + "\nCompany= " + Company + "\nhomePhone= " + HomePhone +
+                "\nEmail1= " + Email1 + "\nHomePage= " + HomePage + "\nNotesSecondary=" + NotesSecondary);
         }
        
         public int CompareTo(ContactData other) //GroupData other - объект с которым сравниваем текущий

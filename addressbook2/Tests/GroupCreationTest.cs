@@ -12,6 +12,12 @@ namespace web_addressbook_test
     public class GroupCreationTests : AuthTestBase
 
     {
+        //Генерируем 5 наборов ТД - то есть 5 тестов. 
+
+        /* Для их запуска в консоли
+        nunit3-console D:\c#projects\addressbook2\addressbook2\addressbook2.sln --test=web_addressbook_test.GroupCreationTests
+        */
+
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
             List<GroupData> groups = new List<GroupData>();
@@ -27,8 +33,6 @@ namespace web_addressbook_test
 
             return groups;
         }
-
-
 
         [Test, TestCaseSource("RandomGroupDataProvider")]
         public void GroupCreationTest(GroupData group)
@@ -52,7 +56,7 @@ namespace web_addressbook_test
 
         }
         
-        /*
+        /* Вместо этого пока используем тесты с рандомными входными данными! 
         [Test]
         public void EmptyGroupCreationTest()
         {
