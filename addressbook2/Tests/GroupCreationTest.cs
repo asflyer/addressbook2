@@ -12,13 +12,31 @@ namespace web_addressbook_test
     public class GroupCreationTests : AuthTestBase
 
     {
-        [Test]
-        public void GroupCreationTest()
+        public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
-            GroupData group = new GroupData("aaa");
+            List<GroupData> groups = new List<GroupData>();
+            for (int i=0; i<5; i++)
+            {
+                groups.Add(new GroupData(GenerateRandomString(30)) //тут 30 - максимальное количество символов в генерируемой строке
+                {
+                    Header = GenerateRandomString(100),
+                    Footer = GenerateRandomString(100),
+
+                });
+            }
+
+            return groups;
+        }
+
+
+
+        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public void GroupCreationTest(GroupData group)
+        {
+            /*GroupData group = new GroupData("aaa");
             group.Header = "ddd";
             group.Footer = "ccc";
-
+            */
             List<GroupData> oldGroups = app.Groups.GetGroupList();
             app.Groups.Create(group);
 
@@ -33,7 +51,8 @@ namespace web_addressbook_test
             Assert.AreEqual(oldGroups, newGroups);
 
         }
-
+        
+        /*
         [Test]
         public void EmptyGroupCreationTest()
         {
@@ -54,7 +73,7 @@ namespace web_addressbook_test
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
-
+        */
 
         /*
         [Test]//Тест для того, чтобы проверить, что наши проверки работают

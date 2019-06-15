@@ -62,7 +62,7 @@ namespace web_addressbook_test
 
         public override string ToString()//Возвращает строковое представление объектов типа GroupData
         {
-            return "name=" + Name;
+            return "name= " + Name + "\nheader= " + Header + "\nfoorer= " ;
         }
 
         public int CompareTo(GroupData other) //GroupData other - объект с которым сравниваем текущий
