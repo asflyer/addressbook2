@@ -5,7 +5,8 @@ using System.Threading;
 using System.IO;
 using NUnit.Framework;
 using System.Collections.Generic;
-
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace web_addressbook_test
 {
@@ -37,7 +38,7 @@ namespace web_addressbook_test
         //Файл текстовый с именем groups.csv - наборы GroupData - строчки. Разделены Имя, хидер и футер - запятыми
         //Файл читается из папки D:\c#projects\addressbook2\addressbook2
 
-        public static IEnumerable<GroupData> GroupDataFromFile()
+        public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
 
@@ -56,10 +57,20 @@ namespace web_addressbook_test
             return groups;
         }
 
+        public static IEnumerable<GroupData> GroupDataFromXmlFile()
+        {
+            return (List<GroupData>) //Явно указываем какого типа возвращаемый объект
+                new XmlSerializer(typeof(List<GroupData>))//Читаем данные типа GroupData
+                .Deserialize(new StreamReader(@"groups.xml"));//Из файла с именем groups.xml
+
+        }
+
+
+
 
         //Для тестов из генерации так [Test, TestCaseSource("RandomGroupDataProvider")]
         //Для тестов из файла так [Test, TestCaseSource("GroupDataFromFile")]
-        [Test, TestCaseSource("GroupDataFromFile")]
+        [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void GroupCreationTest(GroupData group)
         {
             /*GroupData group = new GroupData("aaa");

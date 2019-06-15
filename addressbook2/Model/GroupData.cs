@@ -8,7 +8,9 @@ namespace web_addressbook_test
 {
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Класс можно сравнивать с другими объектами типа GroupData
     {
-        
+        public GroupData()
+        {
+        }
         public GroupData(string name)
         {
             Name = name; //Для свойства с автомат реализацией - присваивание свойства
