@@ -32,7 +32,7 @@ namespace web_addressbook_test
             StringBuilder builder = new StringBuilder();
             for (int i=0; i<l; i++) //генерируем l разнличных символов
             {
-                builder.Append(Convert.ToChar(64 + Convert.ToInt32(rnd.NextDouble() * 90))); //так шанс на успешность выше :)
+                builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 65))); //так шанс на успешность выше :)
                 
                 //попробую +64 и *90
                 //было так в лекции builder.Append(Convert.ToChar(32 + Convert.ToInt32(rnd.NextDouble() * 223))); //+32 Потому что в таблице ANCII символы до 32 - непечатные

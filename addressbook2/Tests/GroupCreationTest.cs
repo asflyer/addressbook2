@@ -2,6 +2,7 @@
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.IO;
 using NUnit.Framework;
 using System.Collections.Generic;
 
@@ -12,12 +13,10 @@ namespace web_addressbook_test
     public class GroupCreationTests : AuthTestBase
 
     {
-        //Генерируем 5 наборов ТД - то есть 5 тестов. 
-
+        //Ниже Генерируем 5 наборов ТД - то есть 5 тестов. 
         /* Для их запуска в консоли
         nunit3-console D:\c#projects\addressbook2\addressbook2\addressbook2.sln --test=web_addressbook_test.GroupCreationTests
         */
-
         public static IEnumerable<GroupData> RandomGroupDataProvider()
         {
             List<GroupData> groups = new List<GroupData>();
@@ -34,7 +33,33 @@ namespace web_addressbook_test
             return groups;
         }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        //Ниже Создаем метод чтения из файла. 
+        //Файл текстовый с именем groups.csv - наборы GroupData - строчки. Разделены Имя, хидер и футер - запятыми
+        //Файл читается из папки D:\c#projects\addressbook2\addressbook2
+
+        public static IEnumerable<GroupData> GroupDataFromFile()
+        {
+            List<GroupData> groups = new List<GroupData>();
+
+            string[] lines = File.ReadAllLines(@"groups.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                groups.Add(new GroupData(parts[0])
+                {
+                    Header = parts [1],
+                    Footer = parts [2]
+                });
+
+            }
+
+            return groups;
+        }
+
+
+        //Для тестов из генерации так [Test, TestCaseSource("RandomGroupDataProvider")]
+        //Для тестов из файла так [Test, TestCaseSource("GroupDataFromFile")]
+        [Test, TestCaseSource("GroupDataFromFile")]
         public void GroupCreationTest(GroupData group)
         {
             /*GroupData group = new GroupData("aaa");
