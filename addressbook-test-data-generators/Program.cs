@@ -18,7 +18,7 @@ namespace addressbook_test_data_generators
     //D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe 2 groups.csv csv
     //тут 2 - кол-во строк, groups.csv - имя файла, csv - расширение
     //D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe 2 contacts.xlsx excel
-    //D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe 3 contacts.json xlsx
+    //D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe 3 contacts.xml xml
     //Файл генерируется в C:\Users\Александр
     class Program
     {

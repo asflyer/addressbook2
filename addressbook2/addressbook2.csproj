@@ -66,10 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppManager\ContactHelper.cs" />
-    <Compile Include="AuthTestBase.cs" />
-    <Compile Include="ContactInformationTest.cs" />
-    <Compile Include="LoginTests.cs" />
-    <Compile Include="SearchTest.cs" />
+    <Compile Include="AppManager\AuthTestBase.cs" />
+    <Compile Include="Tests\ContactInformationTest.cs" />
+    <Compile Include="Tests\LoginTests.cs" />
+    <Compile Include="Tests\SearchTest.cs" />
     <Compile Include="Tests\ContactModificationTest.cs" />
     <Compile Include="Tests\ContactRemovalTest.cs" />
     <Compile Include="Tests\GroupModificationTest.cs" />
@@ -93,15 +93,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
-    <None Include="groups.csv">
+    <Content Include="contacts.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="contacts.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="groups.json">
+    <None Include="contacts.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="groups.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="groups.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="contacts.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="groups.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

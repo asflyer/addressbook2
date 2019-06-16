@@ -7,6 +7,11 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
+using Excel = Microsoft.Office.Interop.Excel;
+using System.IO;
 
 namespace web_addressbook_test
 {
@@ -48,9 +53,90 @@ namespace web_addressbook_test
             return contact;
         }
 
+        public static IEnumerable<ContactData> ContactDataFromExcelFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"contacts.xlsx"));//Открываем файл
+            Excel.Worksheet sheet = wb.ActiveSheet;//При открытии сразу попадаем на активную страницу (лист)
+            Excel.Range range = sheet.UsedRange;//Находим прямоугольник, который содержит какие-то данные
+            for (int i = 1; i <= range.Rows.Count; i++)
+            {
+                contacts.Add(new ContactData()
+                {
+                    Firstname = range.Cells[i, 1].Value,
+                    Middlename = range.Cells[i, 2].Value,
+                    Lastname = range.Cells[i, 3].Value,
+                    Nickname = range.Cells[i, 5].Value,
+                    Title = range.Cells[i, 5].Value,
+                    Company = range.Cells[i, 6].Value,
+                    Address = range.Cells[i, 7].Value,
+                    HomePhone = range.Cells[i, 8].Value,
+                    MobilePhone = range.Cells[i, 9].Value,
+                    WorkPhone = range.Cells[i, 10].Value,
+                    FaxPhone = range.Cells[i, 11].Value,
+                    Email1 = range.Cells[i, 12].Value,
+                    Email2 = range.Cells[i, 13].Value,
+                    Email3 = range.Cells[i, 14].Value,
+                    HomePage = range.Cells[i, 15].Value,
+                    AddressSecondary = range.Cells[i, 16].Value,
+                    SecondaryHome = range.Cells[i, 17].Value,
+                    NotesSecondary = range.Cells[i, 18].Value//нужна ли тут запятая?
+                });
 
+            }
+            wb.Close();
+            app.Visible = false;
+            app.Quit();
+            return contacts;
+        }
 
-        [Test, TestCaseSource("RandomGroupDataProvider")]
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
+        }
+
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
+        {
+            return (List<ContactData>) //Явно указываем какого типа возвращаемый объект
+                new XmlSerializer(typeof(List<ContactData>))//Читаем данные типа GroupData
+                .Deserialize(new StreamReader(@"contacts.xml"));//Из файла с именем groups.xml
+        }
+
+        public static IEnumerable<ContactData> ContactDataFromCsvFile()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+
+            string[] lines = File.ReadAllLines(@"contacts.csv");
+            foreach (string l in lines)
+            {
+                string[] parts = l.Split(',');
+                contacts.Add(new ContactData(parts[0])
+                {
+                    Middlename = parts[1],
+                    Lastname = parts[2],
+                    Nickname = parts[3],
+                    Title = parts[4],
+                    Company = parts[5],
+                    Address = parts[6],
+                    HomePhone = parts[7],
+                    MobilePhone = parts[8],
+                    WorkPhone = parts[9],
+                    FaxPhone = parts[10],
+                    Email1 = parts[11],
+                    Email2 = parts[12],
+                    Email3 = parts[13],
+                    HomePage = parts[14],
+                    AddressSecondary = parts[15],
+                    SecondaryHome = parts[16],
+                    NotesSecondary = parts[17]
+                });
+            }
+            return contacts;
+        }
+
+        //[Test, TestCaseSource("ContactDataFromCsvFile")]
+        [Test, TestCaseSource("ContactDataFromExcelFile")]
                           
         public void AddContactTestCase(ContactData contact)
         {
