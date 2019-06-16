@@ -9,6 +9,7 @@ namespace web_addressbook_test
 {
     public class TestBase
     {
+        public static bool PREFORM_LONG_UI_CHECKS = true; //Проверки в TearDown которые жертвуют временем ради надежности
         public ApplicationManager app;
         [SetUp]
 

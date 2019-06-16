@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace web_addressbook_test 
 {
     [TestFixture]
-    public class GroupRemovalTests : AuthTestBase //Тесты где требуется логин наследуются от AuthTestBase. Где логин не требуется от TestBase напрямую
+    public class GroupRemovalTests : GroupTestBase //Тесты где требуется логин наследуются от AuthTestBase. Где логин не требуется от TestBase напрямую
     {
         
         [Test]
@@ -22,14 +22,15 @@ namespace web_addressbook_test
 
 
             app.Groups.GroupExist();
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            //List<GroupData> oldGroups = app.Groups.GetGroupList(); - меняем через БД
+            List<GroupData> oldGroups = GroupData.GetAll();
             GroupData toBeRemoved = oldGroups[N];
-            app.Groups.Remove(N); //Указываем номер группы для удаления
+            app.Groups.Remove(toBeRemoved); //Указываем номер группы для удаления
 
             Assert.AreEqual(oldGroups.Count - 1, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-            
+            //List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
 
             oldGroups.RemoveAt(N); 
             

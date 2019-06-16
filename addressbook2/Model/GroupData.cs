@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LinqToDB.Mapping;
 
 namespace web_addressbook_test
 {
+    [Table(Name ="group_list")] //addressbook для контактов
+    //Появилось в 7.1
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Класс можно сравнивать с другими объектами типа GroupData
     {
         public GroupData()
@@ -24,6 +27,7 @@ namespace web_addressbook_test
             Footer = footer;
         }
 
+        [Column(Name ="group_name")]
         public string Name { get; set; } //Свойство с автоматической реализацией (то же самое, что и запись через геттер и сеттер ниже)
         /*public string Name
         {
@@ -36,10 +40,14 @@ namespace web_addressbook_test
                 name = value;
             }
         }*/
-        public string Header { get; set; }
-        
-        public string Footer { get; set; }
 
+        [Column(Name = "group_header")]
+        public string Header { get; set; }
+
+        [Column(Name = "group_footer")]
+        public string Footer { get; set; }
+        
+        [Column(Name = "group_id"), PrimaryKey, Identity]
         public string ID { get; set; }
 
         public bool Equals(GroupData other)
@@ -76,5 +84,15 @@ namespace web_addressbook_test
             }
             return Name.CompareTo(other.Name);
         }
+
+        public static List<GroupData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB()) //Если использовать using, то метод db.Close() будет вызываться автоматически
+            {
+                return (from g in db.Groups select g).ToList();
+
+            }
+        }
+
     }
 }

@@ -32,6 +32,8 @@ namespace web_addressbook_test
             return driver.FindElements(By.CssSelector("span.group")).Count;
         }
 
+
+
         private List<GroupData> groupCash = null;
 
         public List<GroupData> GetGroupList()
@@ -65,7 +67,17 @@ namespace web_addressbook_test
             SubmitGroupModification();
             ReturnToGroupPage();
             return this;
+        }
 
+        public GroupHelper Modify(GroupData group, GroupData newData)
+        {
+            manager.Navigator.GoToGroupPage();
+            SelectGroup(group.ID);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            ReturnToGroupPage();
+            return this;
         }
 
         public void GroupExist()
@@ -86,7 +98,16 @@ namespace web_addressbook_test
             RemoveGroup();
             ReturnToGroupPage();
             return this;
-           
+           //Это старый метод. В лекции 7.2 - новый через БД
+        }
+
+        public GroupHelper Remove(GroupData group)
+        {
+            manager.Navigator.GoToGroupPage();
+            SelectGroup(group.ID);
+            RemoveGroup();
+            ReturnToGroupPage();
+            return this;
         }
 
         public GroupHelper ReturnToGroupPage()
@@ -134,6 +155,12 @@ namespace web_addressbook_test
         public GroupHelper SelectGroup(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (index+1) + "]")).Click();
+            return this;
+        }
+
+        public GroupHelper SelectGroup(string ID) //Начиная с лекции 7.2 челез ID
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+ID+"'])")).Click();
             return this;
         }
 

@@ -3,6 +3,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.IO;
+using System.IO.Ports;
+using System.Linq;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Xml;
@@ -13,7 +15,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 namespace web_addressbook_test
 {
     [TestFixture]
-    public class GroupCreationTests : AuthTestBase
+    public class GroupCreationTests : GroupTestBase
 
     {
         //Ниже Генерируем 5 наборов ТД - то есть 5 тестов. 
@@ -32,7 +34,6 @@ namespace web_addressbook_test
 
                 });
             }
-
             return groups;
         }
 
@@ -43,7 +44,6 @@ namespace web_addressbook_test
         public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
-
             string[] lines = File.ReadAllLines(@"groups.csv");
             foreach (string l in lines)
             {
@@ -54,7 +54,6 @@ namespace web_addressbook_test
                     Footer = parts [2]
                 });
             }
-
             return groups;
         }
 
@@ -101,21 +100,20 @@ namespace web_addressbook_test
         //Для тестов из файла exlel так [Test, TestCaseSource("GroupDataFromExcelFile")]
         //меняем тут название, копируем файл в наш проект, 
 
-        [Test, TestCaseSource("GroupDataFromJsonFile")]
-
+        [Test, TestCaseSource("GroupDataFromCsvFile")]
         public void GroupCreationTest(GroupData group)
         {
-            /*GroupData group = new GroupData("aaa");
+            /*Чтобы задавать данные для создания тут нужно подредактировать выше GroupCreationTest() - оставить пустым
+             * GroupData group = new GroupData("aaa");
             group.Header = "ddd";
-            group.Footer = "ccc";
-            */
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            group.Footer = "ccc";*/
+
+            List<GroupData> oldGroups = GroupData.GetAll();
             app.Groups.Create(group);
 
             
             Assert.AreEqual(oldGroups.Count +1 , app.Groups.GetGroupCount());
-            List<GroupData> newGroups = app.Groups.GetGroupList();
-
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups.Add(group);
 
             oldGroups.Sort();
@@ -123,7 +121,26 @@ namespace web_addressbook_test
             Assert.AreEqual(oldGroups, newGroups);
 
         }
-        
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<GroupData> fromUI = app.Groups.GetGroupList();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine("UI");
+            System.Console.Out.WriteLine(end.Subtract(start));//Вычитаем из метки которую сделали вконце метку вначале
+
+            DateTime start1 = DateTime.Now;
+            List<GroupData> fromDB = GroupData.GetAll();
+
+            DateTime end1 = DateTime.Now;
+
+            System.Console.Out.WriteLine("DB");
+            System.Console.Out.WriteLine(end1.Subtract(start1));//Вычитаем из метки которую сделали вконце метку вначале
+
+        }
+
         /* Вместо этого пока используем тесты с рандомными входными данными! 
         [Test]
         public void EmptyGroupCreationTest()

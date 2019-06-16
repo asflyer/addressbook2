@@ -12,7 +12,7 @@ namespace web_addressbook_test
 {
     [TestFixture]
 
-    public class GroupModificationTest : AuthTestBase
+    public class GroupModificationTest : GroupTestBase
     {
         [Test]
 
@@ -24,15 +24,16 @@ namespace web_addressbook_test
             int N = 1;//Порядковый номер изменяемой группы начиная с нуля!!!
 
             app.Groups.GroupExist();
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+            List<GroupData> oldGroups = GroupData.GetAll();
             GroupData toBeModifyed = oldGroups[N];
-            app.Groups.Modify(N, newData);
+            //app.Groups.Modify(N, newData);
+            app.Groups.Modify(toBeModifyed, newData);
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
 
-            oldGroups[N].Name = newData.Name;
-            oldGroups[N].Header = newData.Header;
-            oldGroups[N].Footer = newData.Footer;
+            toBeModifyed.Name = newData.Name;
+            toBeModifyed.Header = newData.Header;
+            toBeModifyed.Footer = newData.Footer;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);

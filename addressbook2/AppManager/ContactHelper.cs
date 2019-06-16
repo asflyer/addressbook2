@@ -9,7 +9,6 @@ using OpenQA.Selenium.Support;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using NUnit.Framework;
-using System.Text.RegularExpressions;
 
 namespace web_addressbook_test
 {
