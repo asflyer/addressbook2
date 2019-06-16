@@ -101,7 +101,7 @@ namespace web_addressbook_test
         //Для тестов из файла exlel так [Test, TestCaseSource("GroupDataFromExcelFile")]
         //меняем тут название, копируем файл в наш проект, 
 
-        [Test, TestCaseSource("GroupDataFromExcelFile")]
+        [Test, TestCaseSource("GroupDataFromXmlFile")]
         public void GroupCreationTest(GroupData group)
         {
             /*Чтобы задавать данные для создания тут нужно подредактировать выше GroupCreationTest() - оставить пустым

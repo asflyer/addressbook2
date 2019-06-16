@@ -57,7 +57,7 @@ namespace web_addressbook_test
         {
             List<ContactData> contacts = new List<ContactData>();
             Excel.Application app = new Excel.Application();
-            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"contacts.xlsx"));//Открываем файл
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(TestContext.CurrentContext.TestDirectory, @"contacts.xlsx"));//Открываем файл
             Excel.Worksheet sheet = wb.ActiveSheet;//При открытии сразу попадаем на активную страницу (лист)
             Excel.Range range = sheet.UsedRange;//Находим прямоугольник, который содержит какие-то данные
             for (int i = 1; i <= range.Rows.Count; i++)
@@ -93,21 +93,26 @@ namespace web_addressbook_test
 
         public static IEnumerable<ContactData> ContactDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(@"contacts.json"));
+            return JsonConvert.DeserializeObject<List<ContactData>>(File.ReadAllText(TestContext.CurrentContext.TestDirectory + @"\contacts.json"));
         }
+
+
 
         public static IEnumerable<ContactData> ContactDataFromXmlFile()
         {
             return (List<ContactData>) //Явно указываем какого типа возвращаемый объект
                 new XmlSerializer(typeof(List<ContactData>))//Читаем данные типа GroupData
-                .Deserialize(new StreamReader(@"contacts.xml"));//Из файла с именем groups.xml
+                .Deserialize(new StreamReader(TestContext.CurrentContext.TestDirectory + @"\contacts.xml"));//Из файла с именем groups.xml
+            
         }
+
+
 
         public static IEnumerable<ContactData> ContactDataFromCsvFile()
         {
             List<ContactData> contacts = new List<ContactData>();
 
-            string[] lines = File.ReadAllLines(@"contacts.csv");
+            string[] lines = File.ReadAllLines(TestContext.CurrentContext.TestDirectory + @"\contacts.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -134,9 +139,11 @@ namespace web_addressbook_test
             }
             return contacts;
         }
-
-        //[Test, TestCaseSource("ContactDataFromCsvFile")]
-        [Test, TestCaseSource("ContactDataFromExcelFile")]
+        //[Test, TestCaseSource("ContactDataFromXmlFile")] - 
+        //[Test, TestCaseSource("ContactDataFromJsonFile")] + 
+        //[Test, TestCaseSource("ContactDataFromExcelFile")] +
+        //[Test, TestCaseSource("ContactDataFromCsvFile")] + 
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
                           
         public void AddContactTestCase(ContactData contact)
         {
