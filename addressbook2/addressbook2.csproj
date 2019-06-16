@@ -154,6 +154,9 @@
     <Content Include="groups.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="groups.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="LinqToDB.Templates\LinqToDB.MySql.Tools.ttinclude" />
     <None Include="packages.config" />
   </ItemGroup>

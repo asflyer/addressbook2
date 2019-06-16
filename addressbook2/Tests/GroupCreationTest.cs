@@ -44,7 +44,7 @@ namespace web_addressbook_test
         public static IEnumerable<GroupData> GroupDataFromCsvFile()
         {
             List<GroupData> groups = new List<GroupData>();
-            string[] lines = File.ReadAllLines(@"groups.csv");
+            string[] lines = File.ReadAllLines(TestContext.CurrentContext.TestDirectory + @"\groups.csv");
             foreach (string l in lines)
             {
                 string[] parts = l.Split(',');
@@ -61,20 +61,21 @@ namespace web_addressbook_test
         {
             return (List<GroupData>) //Явно указываем какого типа возвращаемый объект
                 new XmlSerializer(typeof(List<GroupData>))//Читаем данные типа GroupData
-                .Deserialize(new StreamReader(@"groups.xml"));//Из файла с именем groups.xml
+                .Deserialize(new StreamReader(TestContext.CurrentContext.TestDirectory + @"\groups.xml"));//Из файла с именем groups.xml
 
         }
 
         public static IEnumerable<GroupData> GroupDataFromJsonFile()
         {
-            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(@"groups.json"));
+            return JsonConvert.DeserializeObject<List<GroupData>>(File.ReadAllText(TestContext.CurrentContext.TestDirectory + @"\groups.json"));
         }
 
         public static IEnumerable<GroupData> GroupDataFromExcelFile()
         {
             List<GroupData> groups = new List<GroupData>();
             Excel.Application app = new Excel.Application();
-            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));//Открываем файл
+            Excel.Workbook wb = app.Workbooks.Open(Path.Combine(TestContext.CurrentContext.TestDirectory, @"groups.xlsx"));//Открываем файл
+            //Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));//Открываем файл
             Excel.Worksheet sheet = wb.ActiveSheet;//При открытии сразу попадаем на активную страницу (лист)
             Excel.Range range = sheet.UsedRange;//Находим прямоугольник, который содержит какие-то данные
             for (int i=1; i<=range.Rows.Count; i++)
@@ -93,14 +94,14 @@ namespace web_addressbook_test
             return groups;
         }
 
-        //Для тестов из генерации так [Test, TestCaseSource("RandomGroupDataProvider")]
-        //Для тестов из файла csv так [Test, TestCaseSource("GroupDataFromCsvFile")]
-        //Для тестов из файла json так [Test, TestCaseSource("GroupDataFromJsonFile")]
-        //Для тестов из файла xml так [Test, TestCaseSource("GroupDataFromXmlFile")]
+        //Для тестов из генерации так [Test, TestCaseSource("RandomGroupDataProvider")] +
+        //Для тестов из файла csv так [Test, TestCaseSource("GroupDataFromCsvFile")] +
+        //Для тестов из файла json так [Test, TestCaseSource("GroupDataFromJsonFile")] +
+        //Для тестов из файла xml так [Test, TestCaseSource("GroupDataFromXmlFile")] + 
         //Для тестов из файла exlel так [Test, TestCaseSource("GroupDataFromExcelFile")]
         //меняем тут название, копируем файл в наш проект, 
 
-        [Test, TestCaseSource("GroupDataFromCsvFile")]
+        [Test, TestCaseSource("GroupDataFromExcelFile")]
         public void GroupCreationTest(GroupData group)
         {
             /*Чтобы задавать данные для создания тут нужно подредактировать выше GroupCreationTest() - оставить пустым

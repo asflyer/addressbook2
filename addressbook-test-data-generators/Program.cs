@@ -16,7 +16,7 @@ namespace addressbook_test_data_generators
     //Запускаемый exeшник в D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe
     //Для запуска копировать в cmd
 
-    //D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe 2 groups.csv csv
+    //D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe 2 groups.xlsx excel
     //тут 2 - кол-во строк, groups.csv - имя файла, csv - расширение
     //D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe 2 contacts.xlsx excel
     //D:\c#projects\addressbook2\addressbook2\addressbook-test-data-generators\bin\Debug\addressbook-test-data-generators.exe 3 contacts.xml xml
