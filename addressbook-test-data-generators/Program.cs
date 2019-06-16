@@ -133,8 +133,7 @@ namespace addressbook_test_data_generators
             }
             
         }
-
-
+        
 
         static void WriteGroupsToExcelFile(List<GroupData> groups, string filename)
         {
