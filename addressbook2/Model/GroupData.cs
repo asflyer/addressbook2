@@ -94,5 +94,21 @@ namespace web_addressbook_test
             }
         }
 
+        public List<ContactData> GetContacts()
+        {
+            using (AddressBookDB db = new AddressBookDB()) //Если использовать using, то метод db.Close() будет вызываться автоматически
+            {
+                return (from c in db.Contacts 
+                        from gcr in db.GCR.Where(p => p.GroupID == ID && p.ContactID == c.ContactID) select c).Distinct().ToList();
+
+            }
+
+
+
+
+        }
+
+
+
     }
 }

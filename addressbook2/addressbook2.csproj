@@ -109,6 +109,7 @@
     <Compile Include="AppManager\AuthTestBase.cs" />
     <Compile Include="GroupTestBase.cs" />
     <Compile Include="Model\AddressBookDB.cs" />
+    <Compile Include="Model\GroupContactRelation.cs" />
     <Compile Include="Tests\ContactInformationTest.cs" />
     <Compile Include="Tests\LoginTests.cs" />
     <Compile Include="Tests\SearchTest.cs" />

@@ -142,6 +142,19 @@ namespace web_addressbook_test
 
         }
 
+        [Test]
+        public void TestDBConnectivity2()
+        {
+            foreach (ContactData contact in GroupData.GetAll()[1].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+
+            }
+             
+            
+
+        }
+
         /* Вместо этого пока используем тесты с рандомными входными данными! 
         [Test]
         public void EmptyGroupCreationTest()

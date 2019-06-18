@@ -5,10 +5,14 @@ using System.Text;
 using System.Xml;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using LinqToDB;
+using LinqToDB.Mapping;
 using System.Xml.Serialization;
 
 namespace web_addressbook_test
 {
+    [Table(Name = "addressbook")]
+
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
         
@@ -33,28 +37,52 @@ namespace web_addressbook_test
         public ContactData()
         {
         }
-          
+
+        //[Column(Name = "id"), PrimaryKey]
+        //public string ID { get; set; }
+        [Column(Name = "firstname")]
         public string Firstname { get; set; }
+        [Column(Name = "middlename")]
         public string Middlename { get; set; }
+        [Column(Name = "lastname")]
         public string Lastname { get; set; }
+        [Column(Name = "nickname")]
         public string Nickname { get; set; }
+        [Column(Name = "address")]
         public string Address { get; set; }
+        [Column(Name = "home")]
         public string HomePhone { get; set; }
+        [Column(Name = "mobile")]
         public string MobilePhone { get; set; }
+        [Column(Name = "work")]
         public string WorkPhone { get; set; }
+        [Column(Name = "email")]
         public string Email1 { get; set; }
+        [Column(Name = "email2")]
         public string Email2 { get; set; }
+        [Column(Name = "email3")]
         public string Email3 { get; set; }
-        public string ContactID { get; set; }
+        [Column(Name = "id")]
+        public string ContactID { get; set; } 
+        [Column(Name = "bday")]
         public string Birthday { get; set; }
+        [Column(Name = "company")]
         public string Company { get; set; }
+        [Column(Name = "aday")]
         public string Anniversary { get; set; }
+        [Column(Name = "phone2")]
         public string SecondaryHome { get; set; }
+        [Column(Name = "fax")]
         public string FaxPhone { get; set; }
+        [Column(Name = "homepage")]
         public string HomePage { get; set; }
+        [Column(Name = "title")]
         public string Title { get; set; }
+        [Column(Name = "address2")]
         public string AddressSecondary { get; set; }
+        [Column(Name = "notes")]
         public string NotesSecondary { get; set; }
+        
         [XmlIgnore]
         public string AllPhones
         {
@@ -258,7 +286,7 @@ namespace web_addressbook_test
         
         public override string ToString()//Возвращает строковое представление объектов типа 
         {
-            return ("firstname= " + Firstname + "\nlastname= "+ Lastname + "\nAddress= " + "\nMiddlename= " + Middlename + "\nNickname= " + Nickname
+            return ("Firstname= " + Firstname + "\nLastname= "+ Lastname + "\nAddress= " + "\nMiddlename= " + Middlename + "\nNickname= " + Nickname
                 + Address + "\nMobilePhone= " + MobilePhone + "\nWorkPhone= " + WorkPhone + "\nCompany= " + Company + "\nhomePhone= " + HomePhone +
                 "\nEmail1= " + Email1 + "\nHomePage= " + HomePage + "\nNotesSecondary=" + NotesSecondary);
         }
