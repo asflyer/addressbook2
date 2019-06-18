@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace web_addressbook_test
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-
+        
         private string allPhones;
         private string allemail;
         private string contactDetails;
@@ -53,6 +55,7 @@ namespace web_addressbook_test
         public string Title { get; set; }
         public string AddressSecondary { get; set; }
         public string NotesSecondary { get; set; }
+        [XmlIgnore]
         public string AllPhones
         {
             get
@@ -71,7 +74,7 @@ namespace web_addressbook_test
                 allPhones = value;
             }
         }
-
+        [XmlIgnore]
         public string AllEmail
         {
             get
@@ -90,7 +93,7 @@ namespace web_addressbook_test
                 allemail = value;
             }
         }
-
+        [XmlIgnore]
         public string ContactDetails
         {
             get
@@ -251,7 +254,7 @@ namespace web_addressbook_test
         {
             //return 0;//Так будет всегда вызываться сразу метод Equals (если не ноль, тогда сначала сравниваются, хэшкоды, а если они одинаковые, то вызывается Equals)
             return Firstname.GetHashCode() + Lastname.GetHashCode() ;//Хэш коды вычисляются только по именам и фамилиям
-        }
+        } 
         
         public override string ToString()//Возвращает строковое представление объектов типа 
         {
