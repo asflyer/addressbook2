@@ -155,14 +155,15 @@ namespace web_addressbook_test
             //Остальные поля в функции FillContactData закомментировны. Будут тянуться по-умолчанию. 
             //Для заполнения других полей нужно создать конструктор в ContactData и добавить сюда заполняемые строки
             */
-            List<ContactData> oldContacts = app.Contacts.GetContactList();//Читаем список контактов ДО теста
+            List<ContactData> oldContacts = ContactData.GetAll();
+            //List<ContactData> oldContacts = app.Contacts.GetContactList();//Читаем список контактов ДО теста //заменили "быстрой" операцией через БД
 
             app.Contacts.AddContact(contact);//ТЕСТ. Создает новый контакт
             Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
 
             oldContacts.Add(contact);//Добавляем в сохраненный массив данных созданный контакт (*)
-
-            List<ContactData> newContacts = app.Contacts.GetContactList(); //Считываем список контактов ПОСЛЕ
+            List<ContactData> newContacts = ContactData.GetAll();
+            //List<ContactData> newContacts = app.Contacts.GetContactList(); //Считываем список контактов ПОСЛЕ
             oldContacts.Sort(); //Сортируем оба списка одинаково (не суть как)
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);//Сравниваем массив контактов ДО+новый (*) и массив после 

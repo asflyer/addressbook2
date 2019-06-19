@@ -13,19 +13,24 @@ namespace web_addressbook_test
             ContactData newData = new ContactData("4646"); //newData.Firstname
             //newData.Middlename = "56";
             newData.Lastname = "53126";
-            int N = 2;//порядковый номер записи на странице home  начиная с нуля!!!
+            int N = 0;//порядковый номер записи на странице home  начиная с нуля!!! Работало с GetContactList
 
             app.Contacts.ContactExist();
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+
+            //List<ContactData> oldContacts = app.Contacts.GetContactList();
+            oldContacts.Sort();
             ContactData toBeModifyed = oldContacts[N];
-            app.Contacts.Modify(N, newData);
+            app.Contacts.Modify(toBeModifyed, newData);
 
             Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
-            List<ContactData> newContacts = app.Contacts.GetContactList(); //Считываем список контактов ПОСЛЕ
+            List<ContactData> newContacts = ContactData.GetAll();
+            //List<ContactData> newContacts = app.Contacts.GetContactList(); //Считываем список контактов ПОСЛЕ
 
             oldContacts[N].Firstname = newData.Firstname;
             oldContacts[N].Lastname = newData.Lastname;
             //oldContacts[N].Middlename = newData.Middlename;
+            
             oldContacts.Sort();
             
             newContacts.Sort();

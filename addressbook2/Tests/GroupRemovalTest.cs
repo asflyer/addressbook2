@@ -18,7 +18,7 @@ namespace web_addressbook_test
         [Test]
         public void GroupRemovalTestCase()
         {
-            int N = 2;//Порядковый номер удаляемой группы начиная с нуля!!!
+            int N = 0;//Порядковый номер удаляемой группы начиная с нуля!!!
 
 
             app.Groups.GroupExist();

@@ -82,6 +82,8 @@ namespace web_addressbook_test
         public string AddressSecondary { get; set; }
         [Column(Name = "notes")]
         public string NotesSecondary { get; set; }
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
         
         [XmlIgnore]
         public string AllPhones
@@ -304,5 +306,17 @@ namespace web_addressbook_test
             }
             return Firstname.CompareTo(other.Firstname);
         }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB()) //Если использовать using, то метод db.Close() будет вызываться автоматически
+            {
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
+                //(x => x.Deprecated == "0000-00-00 00:00:00") - "лямбда выражение"
+            }
+        }
+
+
+
     }
 }

@@ -13,14 +13,14 @@ namespace web_addressbook_test
             int N = 1;//ВВОДИМ САМИ Порядковый номер удаляемого контакта начиная с нуля!!!
 
             app.Contacts.ContactExist();
-
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
+            //List<ContactData> oldContacts = app.Contacts.GetContactList();
             ContactData toBeRemoved = oldContacts[N];
             app.Contacts.RemoveContact(N);
 
             Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
-
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAll();
+            //List<ContactData> newContacts = app.Contacts.GetContactList();
 
             oldContacts.RemoveAt(N);//
 

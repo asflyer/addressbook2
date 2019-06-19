@@ -43,6 +43,38 @@ namespace web_addressbook_test
 
         }
 
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+            ClearGroupFilter();
+            SelectContactToAddToGroup(contact.ContactID);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+            //WebDriver периодически проверяет загрузился ли элемент успешного завершения операции
+        }
+
+        public void SelectContactToAddToGroup(string ContactID)
+        {
+            driver.FindElement(By.Id(ContactID)).Click();
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void ClearGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+            //SelectElement = выпадающее меню
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenHomePage();
@@ -94,7 +126,7 @@ namespace web_addressbook_test
             string bmonth = driver.FindElement(By.Name("bmonth")).GetAttribute("value");
             string byear = driver.FindElement(By.Name("byear")).GetAttribute("value");
 
-            if (byear != "0")
+            if (byear != "0" && byear !=null && byear !="")
             {
                 int y = Int32.Parse(byear);
                 string bdate = bday + bmonth + byear;
@@ -204,10 +236,17 @@ namespace web_addressbook_test
             FillContactForm(newData);
             SubmitContactModification();
             return this;
-
         }
 
-
+        public ContactHelper Modify(ContactData contact, ContactData newData)
+        {
+            manager.Navigator.OpenHomePage();
+            //SelectGroup(group.ID);
+            InitContactModification(contact.ContactID);
+            FillContactForm(newData);
+            SubmitContactModification();
+            return this;
+        }
 
         public void ContactExist()
         {
@@ -293,6 +332,13 @@ namespace web_addressbook_test
         public ContactHelper InitContactModification(int index)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[" + (index+1) + "]")).Click();
+            return this;
+        }
+
+        public ContactHelper InitContactModification(string ID)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + ID + "'])")).FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
+            //driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+ID+"'])")).Click();
             return this;
         }
 

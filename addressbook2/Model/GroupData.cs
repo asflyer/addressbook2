@@ -7,7 +7,7 @@ using LinqToDB.Mapping;
 
 namespace web_addressbook_test
 {
-    [Table(Name ="group_list")] //addressbook для контактов
+    [Table(Name ="group_list")] 
     //Появилось в 7.1
     public class GroupData : IEquatable<GroupData>, IComparable<GroupData> //Класс можно сравнивать с другими объектами типа GroupData
     {
@@ -99,7 +99,8 @@ namespace web_addressbook_test
             using (AddressBookDB db = new AddressBookDB()) //Если использовать using, то метод db.Close() будет вызываться автоматически
             {
                 return (from c in db.Contacts 
-                        from gcr in db.GCR.Where(p => p.GroupID == ID && p.ContactID == c.ContactID) select c).Distinct().ToList();
+                        from gcr in db.GCR.Where(p => p.GroupID == ID && p.ContactID == c.ContactID 
+                        && c.Deprecated == "0000-00-00 00:00:00") select c).Distinct().ToList();
 
             }
 

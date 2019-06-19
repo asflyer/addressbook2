@@ -101,7 +101,7 @@ namespace web_addressbook_test
         //Для тестов из файла exlel так [Test, TestCaseSource("GroupDataFromExcelFile")]
         //меняем тут название, копируем файл в наш проект, 
 
-        [Test, TestCaseSource("GroupDataFromXmlFile")]
+        [Test, TestCaseSource("GroupDataFromJsonFile")]
         public void GroupCreationTest(GroupData group)
         {
             /*Чтобы задавать данные для создания тут нужно подредактировать выше GroupCreationTest() - оставить пустым
@@ -155,14 +155,14 @@ namespace web_addressbook_test
 
         }
 
-        /* Вместо этого пока используем тесты с рандомными входными данными! 
+        // Вместо этого пока используем тесты с рандомными входными данными! 
         [Test]
         public void EmptyGroupCreationTest()
         {
-            GroupData group = new GroupData("")
+            GroupData group = new GroupData("56")
             {
-                Header = "",
-                Footer = ""
+                Header = "455",
+                Footer = "745"
             };
             //Thread.Sleep(100); //Костыль - иначе падает при массовом запуске
             List<GroupData> oldGroups = app.Groups.GetGroupList();
@@ -176,7 +176,7 @@ namespace web_addressbook_test
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
         }
-        */
+        
 
         /*
         [Test]//Тест для того, чтобы проверить, что наши проверки работают
