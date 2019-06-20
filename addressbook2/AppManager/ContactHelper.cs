@@ -43,6 +43,33 @@ namespace web_addressbook_test
 
         }
 
+        public void DeleteContactFromGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.OpenHomePage();
+            SelectGroupDropdown(group.Name);
+            SelectContactToAddToGroup(contact.ContactID);
+            InitContactRemovingFromGroup();
+            GoToGroopPageAfterRemoving();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10)).Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+            GoToGroopPageAfterRemoving();
+            contactCash = null;
+        }
+
+        private void GoToGroopPageAfterRemoving()
+        {
+            driver.FindElement(By.CssSelector("div.msgbox")).FindElement(By.PartialLinkText("group"));
+        }
+
+        public void InitContactRemovingFromGroup()
+        {
+            driver.FindElement(By.Name("remove")).Click();
+        }
+
+        public void SelectGroupDropdown(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText(name);
+        }
+
         public void AddContactToGroup(ContactData contact, GroupData group)
         {
             manager.Navigator.OpenHomePage();
@@ -411,6 +438,26 @@ namespace web_addressbook_test
             }
             return new List<ContactData>(contactCash);
 
+        }
+
+        public List<ContactData> GetContactInGroupList(GroupData group)
+        {
+            if (contactCash == null)
+            {
+                contactCash = new List<ContactData>();
+                manager.Navigator.OpenHomePage();
+                SelectGroupDropdown(group.Name);
+
+                ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("[ name = 'entry' ]")); //ищем элемент с аттрибутом name = entry (привет CSS селекторы)
+
+                foreach (IWebElement element in elements) //Для каждого элемента в коллекции
+                {
+                    ContactData contact = new ContactData(element.FindElement(By.XPath(".//td[3]")).Text,/* "" ,*/ element.FindElement(By.XPath(".//td[2]")).Text);
+                    contact.ContactID = element.FindElement(By.TagName("input")).GetAttribute("value");
+                    contactCash.Add(contact);
+                }
+            }
+            return new List<ContactData>(contactCash);
         }
 
         public int GetNumberOfSearchResults()
