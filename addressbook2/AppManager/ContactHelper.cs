@@ -241,7 +241,6 @@ namespace web_addressbook_test
         public ContactHelper Modify(ContactData contact, ContactData newData)
         {
             manager.Navigator.OpenHomePage();
-            //SelectGroup(group.ID);
             InitContactModification(contact.ContactID);
             FillContactForm(newData);
             SubmitContactModification();
@@ -268,6 +267,14 @@ namespace web_addressbook_test
             return this;
         }
 
+        public ContactHelper RemoveContact(ContactData contact)
+        {
+            manager.Navigator.OpenHomePage();
+            SelectContactToAddToGroup(contact.ContactID);
+            //SelectContact(v);
+            DeleteContact();
+            return this;
+        }
 
         public ContactHelper DeleteContact()
         {
@@ -337,14 +344,14 @@ namespace web_addressbook_test
 
         public ContactHelper InitContactModification(string ID)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + ID + "'])")).FindElement(By.XPath("(//img[@alt='Edit'])")).Click();
-            //driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+ID+"'])")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + ID + "']/../..)")).FindElement(By.XPath("(.//img[@alt='Edit'])")).Click();
+            //УРА! ПОБЕДА!
             return this;
         }
 
         public ContactHelper OpenContactDetailsPage(int index)
         {
-            //driver.FindElement(By.Name("entry")).FindElement(By.XPath(".//td[6]")).FindElement(By.TagName("a")).Click(); - не понима. почему не работает
+            
             driver.FindElement(By.XPath("(//img[@alt='Details'])[" + (index + 1) + "]")).Click();
             return this;
         }
