@@ -13,12 +13,30 @@ namespace web_addressbook_test
         [Test]
         public void DeleteContactFromGroupTestCase() //Быстрый тест - проверка удаления в БД
         {
-            GroupData group = GroupData.GetAll().Find(x => x.Name.Contains("zzz"));//Сами задаем имя группы из корторой удаляем
-            //app.Contacts.SelectGroupDropdown(group.Name);
-                        
-            List<ContactData> oldList = group.GetContacts(); //Запоминаем старый список контактов в группе
-            ContactData contact = oldList[0]; //Берем первый из контактов в группе
-            
+            app.Contacts.ContactExist();
+
+            ContactData contact;
+            GroupData group = GroupData.GetAll().Find(x => x.Name.Contains("56"));//Сами задаем имя группы из корторой удаляем
+                                                                                  //app.Contacts.SelectGroupDropdown(group.Name);
+            if (group == null)
+            {
+                app.Groups.GroupExist();
+                group = GroupData.GetAll()[0];
+            }
+
+            List<ContactData> oldList = group.GetContacts();
+
+            if (group.GetContacts().Count == 0)
+            {
+                contact = ContactData.GetAll()[0];
+                app.Contacts.AddContactToGroup(contact, group);
+
+            }
+            else
+            {
+                contact = oldList[0]; //Берем первый из контактов в группе
+            }
+
             app.Contacts.DeleteContactFromGroup(contact, group);
 
             List<ContactData> newList = group.GetContacts(); //Запоминаем старый список контактов
@@ -30,15 +48,32 @@ namespace web_addressbook_test
 
         }
 
+        /* 
         [Test]
         public void LongDeleteContactFromGroupTestCase() //В этом тесте добавил проверку в GUI
         {
+            app.Contacts.ContactExist();
+            app.Groups.GroupExist();
+
             GroupData group = GroupData.GetAll().Find(x => x.Name.Contains("zzz"));
 
             List<ContactData> oldContacts = app.Contacts.GetContactInGroupList(group);
             List<ContactData> oldList = group.GetContacts(); //Запоминаем старый список контактов в группе
             ContactData contact = oldList[0]; //Берем первый из контактов в группе
-                    
+
+
+            if (group.GetContacts().Count == 0)
+            {
+                contact = ContactData.GetAll()[0];
+                app.Contacts.AddContactToGroup(contact, group);
+
+            }
+            else
+            {
+                contact = oldList[0]; //Берем первый из контактов в группе
+            }
+
+
             app.Contacts.DeleteContactFromGroup(contact, group);
             List<ContactData> newContacts = app.Contacts.GetContactInGroupList(group);
             List<ContactData> newList = group.GetContacts(); //Запоминаем старый список контактов
@@ -55,6 +90,6 @@ namespace web_addressbook_test
             oldContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
         }
-        
+        */
     }
 }
